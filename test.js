@@ -18,6 +18,6 @@ draw(0, 0, 255);
 
 setTimeout(function(){
 	//matrix.stop();	
-}, 10000);
+}, 3000);
 
 
