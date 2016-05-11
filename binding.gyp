@@ -1,7 +1,7 @@
 
 {
 	"variables": {
-    	"boost_root%": "/Users/Magnus/Desktop/Github/hzeller-matrix"
+    	"boost_root%": "/home/pi/hzeller-matrix"
 	},
     "targets": [
         {
