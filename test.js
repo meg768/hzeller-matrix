@@ -14,7 +14,7 @@ draw();
 
 
 setTimeout(function(){
-	matrix.stop();	
+	//matrix.stop();	
 }, 10000);
 
 
