@@ -314,6 +314,7 @@ void Init(v8::Local<v8::Object> exports) {
     exports->Set(Nan::New("stop").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(stop)->GetFunction());
     exports->Set(Nan::New("setPixel").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(setPixel)->GetFunction());
     exports->Set(Nan::New("refresh").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(refresh)->GetFunction());
+    exports->Set(Nan::New("update").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(refresh)->GetFunction());
 }
 
 NODE_MODULE(addon, Init)  
