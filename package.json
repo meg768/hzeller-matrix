@@ -1,0 +1,12 @@
+{
+  "name": "addon",
+  "version": "0.0.0",
+  "description": "Node.js Addon Example",
+  "main": "index.js",
+  "dependencies": {
+    "nan": "^2.3.3"
+  },
+  "scripts": {
+    "test": "node index.js"
+  }
+}
