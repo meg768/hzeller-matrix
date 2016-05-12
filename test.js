@@ -9,7 +9,7 @@ function draw(red, green, blue) {
 	matrix.refresh();
 }
 
-matrix.configure(32, 32);
+matrix.configure({width:32, height:32});
 matrix.drawPixel(5, 5, 255, 255, 255);
 matrix.update();
 
