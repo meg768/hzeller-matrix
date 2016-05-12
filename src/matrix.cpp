@@ -17,7 +17,7 @@ void initialize()
 
 struct RUNTEXT_CONTEXT {
     uv_work_t request;
-    v8::Persistent<v8::Function> callback;
+//    v8::Persistent<v8::Function> callback;
     Matrix *matrix;
 };
 
@@ -76,9 +76,12 @@ NAN_METHOD(runText)
 
 	RUNTEXT_CONTEXT *context = new RUNTEXT_CONTEXT();
 
+	context->request.data = context;
 	context->matrix = matrix;
 	 
 	uv_queue_work(uv_default_loop(), &context->request, runTextWorker, runTextCompleted);	 
+
+	info.GetReturnValue().Set(Nan::Undefined());
 	
 }
 
