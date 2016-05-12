@@ -452,7 +452,8 @@ NAN_MODULE_INIT(Init)
 	Nan::SetMethod(target, "configure", configure);
 	Nan::SetMethod(target, "drawPixel", drawPixel);
 	Nan::SetMethod(target, "drawImage", drawImage);
-	Nan::SetMethod(target, "udpate", update);
+	Nan::SetMethod(target, "update", update);
+	
 	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(), width);
 	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), height);
 }
