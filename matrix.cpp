@@ -275,11 +275,11 @@ static Matrix *matrix = NULL;
 
 void initialize() 
 {
-	static int initialized = FALSE;
+	static int initialized = 0;
 	
 	if (!initialized) {
 		Magick::InitializeMagick(NULL);
-		initialized = TRUE;
+		initialized = 1;
 	}
 }
 
