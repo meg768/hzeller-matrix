@@ -7,7 +7,7 @@
     "targets": [
         {
             "target_name": "matrix",
-            "sources": [ "matrix.cpp" ],
+            "sources": [ "src/matrix.cpp" ],
             "include_dirs": [
 	            "./hzeller/include",
 	            "<(MAGICK_ROOT)",
