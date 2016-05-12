@@ -400,7 +400,9 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 };
 
 
-void drawPixel(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+//void drawPixel(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+
+NAN_METHOD(drawPixel) {
 
 	if (matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
@@ -423,12 +425,54 @@ void drawPixel(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 };
 
+NAN_GETTER(width)
+{
+	if (matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
 
+	info.GetReturnValue().Set(matrix->width());
+
+
+}
+
+NAN_GETTER(height)
+{
+	if (matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
+
+	info.GetReturnValue().Set(matrix->height());
+
+
+}
+
+NAN_MODULE_INIT(Init) 
+{
+	Nan::SetMethod(target, "configure", configure);
+	Nan::SetMethod(target, "drawPixel", drawPixel);
+	Nan::SetMethod(target, "drawImage", drawImage);
+	Nan::SetMethod(target, "udpate", update);
+	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(), width);
+	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), height);
+}
+
+/*
+NAN_MODULE_INIT(Init) {
+  NAN_EXPORT(target, drawPixel);
+  NAN_EXPORT(target, width);
+}
+*/
+/*
 void Init(v8::Local<v8::Object> exports) {  
     exports->Set(Nan::New("configure").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(configure)->GetFunction());
     exports->Set(Nan::New("drawPixel").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(drawPixel)->GetFunction());
     exports->Set(Nan::New("drawImage").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(drawImage)->GetFunction());
     exports->Set(Nan::New("update").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(update)->GetFunction());
+
+    exports->Set(Nan::New("width").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(width)->GetGetter());
+    exports->Set(Nan::New("height").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(height)->GetGetter());
 }
 
-NODE_MODULE(addon, Init)  
+*/
+NODE_MODULE(addon, Init)
