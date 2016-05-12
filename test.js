@@ -15,6 +15,7 @@ matrix.drawImage(fs.readFileSync("images/emoji.png"));
 matrix.drawPixel(5, 5, 255, 255, 255);
 matrix.update();
 
+
 setTimeout(function(){
 	//matrix.stop();	
 }, 8000);
