@@ -19,6 +19,8 @@
 #include <dirent.h>
 #include <getopt.h>
 
+#include <Magick++.h>
+#include <magick/image.h>
 
 
 #include "led-matrix.h"
@@ -49,7 +51,7 @@ class Matrix {
 
 	public:
 	
-	Matrix() {
+	Matrix(int width, int height) {
 		srand(time(NULL));
 		
 		__matrix = this;
@@ -62,8 +64,25 @@ class Matrix {
 		_matrix     = 0;
 		_canvas     = 0;
 		_pwmBits    = 0;
+		_width      = width;
+		_height     = height;
 		_brightness = 0;
-		_config     = "32x32";
+
+		if (width > 0 && height > 0) {
+			_io = new rgb_matrix::GPIO();
+			
+			if (!_io->Init()) {
+				exit(-1);
+			}
+			
+			_matrix = new rgb_matrix::RGBMatrix(_io, 32, width / 32, height / 32);
+			_canvas = _matrix->CreateFrameCanvas();
+			
+			setBrightness(_brightness);
+			setPWMBits(_pwmBits);
+			
+		}
+
 	}
 
 	virtual ~Matrix() {
@@ -83,20 +102,12 @@ class Matrix {
 	
 
 
-	const char *config() {
-		return _config.c_str();
-	}
-	
-	inline void config(const char *value) {
-		_config = value;
-	}
-	
 	inline int width() {
-		return _canvas->width();
+		return _width;
 	}
 	
 	inline int height() {
-		return _canvas->height();
+		return _height;
 	}
 
 	inline void clear() {
@@ -225,31 +236,33 @@ class Matrix {
 		_canvas = _matrix->SwapOnVSync(_canvas);
 	}
 
-	void init() {
-		if (_io == 0) {
-			int width = 0, height = 0;
-			int result = sscanf(_config.c_str(), "%dx%d", &width, &height);
-			
-			if (result == 2 && width > 0 && height > 0) {
-				_io = new rgb_matrix::GPIO();
-				
-				if (!_io->Init()) {
-					exit(-1);
-				}
-				
-				_matrix = new rgb_matrix::RGBMatrix(_io, 32, width / 32, height / 32);
-				_canvas = _matrix->CreateFrameCanvas();
-				
-				setBrightness(_brightness);
-				setPWMBits(_pwmBits);
-				
+	void drawImage(Magick::Image &image, int x, int y, int offsetX, int offsetY) {
+		
+		int screenWidth  = width();
+		int screenHeight = height();
+		
+		int width        = screenWidth - x;
+		int height       = screenHeight - y;
+		
+		const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, width, height);
+		
+		for (int row = y; row < height; row++) {
+			for (int col = x; col < width; col++) {
+				uint8_t red   = pixels->red;
+				uint8_t green = pixels->green;
+				uint8_t blue  = pixels->blue;
+				setPixel(col, row, red, green, blue);
+				pixels++;
 			}
 		}
 	}
+
 	
 protected:
 	int _pwmBits;
 	int _brightness;
+	int _width;
+	int _height;
 	rgb_matrix::RGBMatrix *_matrix;
 	rgb_matrix::GPIO *_io;
 	rgb_matrix::FrameCanvas *_canvas;
@@ -258,63 +271,145 @@ protected:
 
 static Matrix *matrix = NULL;
 
-void start(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
+
+void update(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	
 	if (matrix == NULL) {
-		matrix = new Matrix();
-		matrix->init();		
+        return Nan::ThrowError("Matrix is not configured.");
 	}
-	
-	v8::Local<v8::Boolean> result = Nan::New(true);
 
-	info.GetReturnValue().Set(result);
-};
-
-void stop(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	
-	delete matrix;
-	matrix = NULL;
-	
-	v8::Local<v8::Boolean> result = Nan::New(true);
-
-	info.GetReturnValue().Set(result);
-};
-
-void refresh(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	
 	matrix->refresh();
 
-	v8::Local<v8::Boolean> result = Nan::New(true);
-	info.GetReturnValue().Set(result);
+	info.GetReturnValue().Set(Nan::Undefined());
 };
 
-void setPixel(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+
+void configure(const Nan::FunctionCallbackInfo<v8::Value>& info) 
+{
+	Nan::HandleScope();
+	
+	if (info.Length() != 1 ) {
+		return Nan::ThrowError("configure requires an argument.");
+	}
+	
+	v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast( info[ 0 ] );
+	
+	
+	int width = options->Get(Nan::New<v8::String>("width").ToLocalChecked() )->Int32Value();
+	int height = options->Get(Nan::New<v8::String>("height").ToLocalChecked() )->Int32Value();
+
+	if (matrix != NULL)
+		delete matrix;
+
+	matrix = new Matrix(width, height);
+	
+	info.GetReturnValue().Set(Nan::Undefined());
+};
+
+
+void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info) 
+{
+	Nan::HandleScope();
+
+	int argc = info.Length();
+	
+	if (matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
+
+	if (argc < 1) {
+		return Nan::ThrowError("drawImage requires at least one argument.");
+	}
+
+	v8::Local<v8::Object> image = info[0]->ToObject();
+
+
+	int x = 0, y = 0, offsetX = 0, offsetY = 0;
+	
+	if (argc > 1)
+		x = info[1]->IntegerValue();
+	
+	if (argc > 2)
+		y = info[2]->IntegerValue();
+	
+	if (argc > 3)
+		offsetX = info[3]->IntegerValue();
+	
+	if (argc > 4)
+		offsetY = info[4]->IntegerValue();
+
+	
+    try {
+		if (image->IsUndefined()) {
+	        return Nan::ThrowError("drawImage needs an image");
+	    }
+		
+		if (image->IsString()) {
+			
+			v8::String::Utf8Value strg(image->ToString());
+			std::string fileName = std::string(*strg); 
+
+			Magick::Image img(fileName.c_str());
+			
+			matrix->drawImage(img, x, y, offsetX, offsetY);
+		}
+		
+		if (node::Buffer::HasInstance(image) ) {
+		    Magick::Blob blob(node::Buffer::Data(image), node::Buffer::Length(image));
+			Magick::Image img(blob);
+
+			matrix->drawImage(img, x, y, offsetX, offsetY);
+
+	    }
+	    
+		return Nan::ThrowError("drawImage needs an file name of image");
+    	
+    }
+    catch (std::exception& error) {
+        std::string what("Upps!"); //error.what());
+        std::string message = std::string("Failed reading image: ") + what;
+
+		return Nan::ThrowError(message.c_str());
+    }
+    catch (...) {
+        return Nan::ThrowError("Unhandled error");
+    }
+	
+	info.GetReturnValue().Set(Nan::Undefined());
+
+};
+
+
+void drawPixel(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+
+	if (matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
 
     if (info.Length() < 5) {
         Nan::ThrowTypeError("Wrong number of arguments");
         return;
     }
-
+	
 	int x = info[0]->IntegerValue();
 	int y = info[1]->IntegerValue();
 	int r = info[2]->IntegerValue();
 	int g = info[3]->IntegerValue();
 	int b = info[4]->IntegerValue();
+
 	matrix->setPixel(x, y, r, g, b);	
 
-	v8::Local<v8::Boolean> result = Nan::New(true);
-
-	info.GetReturnValue().Set(result);
+	info.GetReturnValue().Set(Nan::Undefined());
 
 };
 
 
 void Init(v8::Local<v8::Object> exports) {  
-    exports->Set(Nan::New("start").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(start)->GetFunction());
-    exports->Set(Nan::New("stop").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(stop)->GetFunction());
-    exports->Set(Nan::New("setPixel").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(setPixel)->GetFunction());
-    exports->Set(Nan::New("refresh").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(refresh)->GetFunction());
-    exports->Set(Nan::New("update").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(refresh)->GetFunction());
+    exports->Set(Nan::New("configure").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(configure)->GetFunction());
+    exports->Set(Nan::New("drawPixel").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(drawPixel)->GetFunction());
+    exports->Set(Nan::New("drawImage").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(drawImage)->GetFunction());
+    exports->Set(Nan::New("update").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(update)->GetFunction());
 }
 
 NODE_MODULE(addon, Init)  

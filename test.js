@@ -9,12 +9,9 @@ function draw(red, green, blue) {
 	matrix.refresh();
 }
 
-matrix.start();
-draw(255, 255, 255);
-draw(255, 0, 0);
-draw(0, 255, 0);
-draw(0, 0, 255);
-
+matrix.configure(32, 32);
+matrix.drawPixel(5, 5, 255, 255, 255);
+matrix.update();
 
 setTimeout(function(){
 	//matrix.stop();	

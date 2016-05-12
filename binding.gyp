@@ -1,7 +1,8 @@
 
 {
 	"variables": {
-    	"boost_root%": "/home/pi/hzeller-matrix"
+		"XXMAGICK_ROOT%": "/usr/local/Cellar/graphicsmagick/1.3.23_1/include/GraphicsMagick",
+		"MAGICK_ROOT": "/usr/include/GraphicsMagick"
 	},
     "targets": [
         {
@@ -9,24 +10,26 @@
             "sources": [ "matrix.cpp" ],
             "include_dirs": [
 	            "./hzeller/include",
+	            "<(MAGICK_ROOT)",
                 "<!(node -e \"require('nan')\")"
             ],
             "link_settings": {
 	            "libraries": [ 
-	            	"<@(boost_root)/hzeller/lib/librgbmatrix.a",
+	            	"<!(pwd)/hzeller/lib/librgbmatrix.a",
 					"<!(GraphicsMagick++-config --libs)"           	
 	            ],
 	            
 				"ldflags": [
-	            	"-L<@(boost_root)/hzeller/lib",
-					"-Wl,-rpath,<@(boost_root)/hzeller/lib",
+	            	"-L<!(pwd)/hzeller/lib",
+					"-Wl,-rpath,<!(pwd)/hzeller/lib"
 				]
 	            
             },
 			    
-			"ldflags": [ "<!(GraphicsMagick++-config --ldflags)" ],
+			"ldflags"   : [ "<!(GraphicsMagick++-config --ldflags)" ],
 
-			"cflags"    : ["-std=c++11"],
+			"cflags"    : [ "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"Xcflags"   : ["-std=c++11"],
 			"cflags!"   : [ "-fno-exceptions", "-fno-rtti"],
 
 			"cflags_cc" : [ "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
