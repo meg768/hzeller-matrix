@@ -1,4 +1,5 @@
 var matrix = require('./build/Release/matrix');
+var fs = require('fs');
 
 function draw(red, green, blue) {
 
@@ -10,7 +11,7 @@ function draw(red, green, blue) {
 }
 
 matrix.configure({width:32, height:32});
-matrix.drawImage("images/emoji.png");
+matrix.drawImage(fs.readFileSync("images/emoji.png"));
 matrix.drawPixel(5, 5, 255, 255, 255);
 matrix.update();
 
