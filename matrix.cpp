@@ -345,7 +345,7 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 	        return Nan::ThrowError("drawImage needs an image");
 	    }
 		
-		if (image->IsString()) {
+		if (image->IsStringObject()) {
 			
 			v8::String::Utf8Value strg(image->ToString());
 			std::string fileName = std::string(*strg); 
@@ -364,7 +364,7 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 	    }
 	    
 	    else
-			return Nan::ThrowError("drawImage needs an file name of image");
+			return Nan::ThrowError("drawImage needs an filename or image");
     	
     }
     catch (std::exception& error) {
