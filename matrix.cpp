@@ -353,6 +353,8 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 
 	
     try {
+		Magick::Image img;
+
 		if (image->IsUndefined()) {
 	        return Nan::ThrowError("drawImage needs an image");
 	    }
@@ -362,21 +364,25 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 			v8::String::Utf8Value strg(image->ToString());
 			std::string fileName = std::string(*strg); 
 
-			Magick::Image img(fileName.c_str());
-			
-			matrix->drawImage(img, x, y, offsetX, offsetY);
+			img.read(fileName.c_str());
 		}
 		
 		else if (node::Buffer::HasInstance(image) ) {
 		    Magick::Blob blob(node::Buffer::Data(image), node::Buffer::Length(image));
-			Magick::Image img(blob);
-
-			matrix->drawImage(img, x, y, offsetX, offsetY);
-
+			img.read(blob);
 	    }
 	    
 	    else
 			return Nan::ThrowError("drawImage needs an filename or image");
+
+
+		// Convert transparent PNG:s
+		Magick::Image tmp(Magick::Geometry(img.columns(), img.rows()), "black");
+		tmp.composite(img, 0, 0, Magick::OverCompositeOp);
+			
+		matrix->drawImage(tmp, x, y, offsetX, offsetY);
+
+
     	
     }
     catch (std::exception& error) {

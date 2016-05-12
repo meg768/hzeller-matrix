@@ -17,6 +17,6 @@ matrix.update();
 
 setTimeout(function(){
 	//matrix.stop();	
-}, 3000);
+}, 8000);
 
 
