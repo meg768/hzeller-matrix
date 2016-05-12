@@ -18,7 +18,7 @@ void initialize()
 struct RUNTEXT_CONTEXT {
     uv_work_t request;
     v8::Persistent<v8::Function> callback;
-    TextAnimation *animation;
+    Matrix *matrix;
 };
 
 
@@ -30,7 +30,9 @@ static void runTextWorker(uv_work_t *request)
     // valiables -- all data and memory needed, MUSt be in the Baton structure
     RUNTEXT_CONTEXT *info = static_cast<RUNTEXT_CONTEXT*>(request->data);
 
-	info->animation->run();
+	TextAnimation animation(info->matrix);
+	animation.text("HEJ");
+	animation.run();
 }
 
 static void runTextCompleted(uv_work_t *request, int status)
@@ -48,7 +50,7 @@ static void runTextCompleted(uv_work_t *request, int status)
 	//	node::FatalException(try_catch);
 	//}
 
-	delete info->animation;	
+	//delete info->animation;	
 //	info->callback.Dispose();
 	delete info;
 
@@ -67,16 +69,14 @@ NAN_METHOD(runText)
 	}
 	
 	v8::Local<v8::String> text = v8::Local<v8::String>::Cast(info[0]);
-	v8::Local<v8::Function> callback = v8::Local<v8::Function>::Cast(info[1]);
+	//v8::Local<v8::Function> callback = v8::Local<v8::Function>::Cast(info[1]);
 
 	v8::String::Utf8Value utf8Text(text->ToString());
 	std::string stdText = std::string(*utf8Text);
 
 	RUNTEXT_CONTEXT *context = new RUNTEXT_CONTEXT();
 
-	//context->callback = Nan::New<v8::Persistent<v8::Function>>(callback);
-	context->animation = new TextAnimation(matrix);
-	context->animation->text(stdText.c_str());
+	context->matrix = matrix;
 	 
 	uv_queue_work(uv_default_loop(), &context->request, runTextWorker, runTextCompleted);	 
 	
