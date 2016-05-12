@@ -17,68 +17,117 @@ void initialize()
 
 struct RUNTEXT_CONTEXT {
     uv_work_t request;
-//    v8::Persistent<v8::Function> callback;
-    Matrix *matrix;
+    Nan::Callback *callback;
+    Animation *animation;
 };
 
 
 static void runTextWorker(uv_work_t *request)
 {
-	// This method will run in a seperate thread where you can do 
-    // your blocking background work.
-    // In this function, you cannot under any circumstances access any V8/node js
-    // valiables -- all data and memory needed, MUSt be in the Baton structure
-    RUNTEXT_CONTEXT *info = static_cast<RUNTEXT_CONTEXT*>(request->data);
+    RUNTEXT_CONTEXT *context = static_cast<RUNTEXT_CONTEXT*>(request->data);
 
-	TextAnimation animation(info->matrix);
-	animation.text("HEJ");
-	animation.run();
+	context->animation->run();
 }
 
 static void runTextCompleted(uv_work_t *request, int status)
 {
+	Nan::HandleScope scope;
+	
    // This is what is called after the 'Work' is done, you can now move any data from 
     // Baton to the V8/Nodejs space and invoke call back functions
 
-    RUNTEXT_CONTEXT *info = static_cast<RUNTEXT_CONTEXT*>(request->data);
+    RUNTEXT_CONTEXT *context = static_cast<RUNTEXT_CONTEXT*>(request->data);
 
-	v8::TryCatch try_catch;
+	if (context->callback != NULL) {
+		v8::TryCatch try_catch;
 	
-	//info->callback.Call(v8::Context::GetCurrent()->Global(), 0);
+		v8::Local<v8::String> text = Nan::New<v8::String>("width").ToLocalChecked();
+		
+		v8::Local<v8::Value> argv[2];
+		
+		argv[0] = text;
+		argv[1] = text;
+	
+	    context->callback->Call(2, argv);
+	}
 
-	//if (try_catch.HasCaught()) {
-	//	node::FatalException(try_catch);
-	//}
-
-	//delete info->animation;	
-//	info->callback.Dispose();
-	delete info;
+    delete context->callback;
+    delete context->animation;
+    delete context;
 
 }
 
 NAN_METHOD(runText)
 {
-	Nan::HandleScope();
-
+	Nan::HandleScope scope;
+	
 	if (matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
-
-	if (info.Length() != 2 ) {
-		return Nan::ThrowError("runText requires two arguments.");
-	}
 	
-	v8::Local<v8::String> text = v8::Local<v8::String>::Cast(info[0]);
-	//v8::Local<v8::Function> callback = v8::Local<v8::Function>::Cast(info[1]);
+	int argc = info.Length();
 
-	v8::String::Utf8Value utf8Text(text->ToString());
-	std::string stdText = std::string(*utf8Text);
+	v8::Local<v8::String> text;
+	v8::Local<v8::Object> options;
+	v8::Local<v8::Function> callback;
 
+	if (argc > 0)
+		text = v8::Local<v8::String>::Cast(info[0]);
+	
+	if (argc > 1)
+		options = v8::Local<v8::Object>::Cast(info[1]); 	 	
+	
+	if (argc > 2)
+		callback = v8::Local<v8::Function>::Cast(info[2]);
+
+	
+	TextAnimation *animation = new TextAnimation(matrix);
+	
+	v8::Local<v8::Value> duration   = Nan::Undefined();
+	v8::Local<v8::Value> delay      = Nan::Undefined();
+	v8::Local<v8::Value> iterations = Nan::Undefined();
+	v8::Local<v8::Value> textColor  = Nan::Undefined();
+	v8::Local<v8::Value> fontSize   = Nan::Undefined();
+	v8::Local<v8::Value> fontName   = Nan::Undefined();
+
+	if (!options->IsUndefined()) {
+		duration   = options->Get(Nan::New<v8::String>("duration").ToLocalChecked());
+		delay      = options->Get(Nan::New<v8::String>("delay").ToLocalChecked());
+		iterations = options->Get(Nan::New<v8::String>("iterations").ToLocalChecked());
+		textColor  = options->Get(Nan::New<v8::String>("textColor").ToLocalChecked());
+		fontSize   = options->Get(Nan::New<v8::String>("fontSize").ToLocalChecked());
+		fontName   = options->Get(Nan::New<v8::String>("fontName").ToLocalChecked());
+		
+	}
+
+	if (!text->IsUndefined())
+		animation->text(*v8::String::Utf8Value(text));
+
+	if (!textColor->IsUndefined())
+		animation->textColor(*v8::String::Utf8Value(textColor));
+
+	if (!duration->IsUndefined())
+		animation->duration(duration->Int32Value());
+
+	if (!fontSize->IsUndefined())
+		animation->fontSize(fontSize->Int32Value());
+
+	if (!iterations->IsUndefined())
+		animation->iterations(iterations->Int32Value());
+
+	if (!fontName->IsUndefined())
+		animation->fontName(*v8::String::Utf8Value(fontName));
+
+	if (!delay->IsUndefined())
+		animation->delay(delay->Int32Value());
+
+		animation->fontName("./fonts/Impact.ttf");
+	
 	RUNTEXT_CONTEXT *context = new RUNTEXT_CONTEXT();
-
 	context->request.data = context;
-	context->matrix = matrix;
-	 
+	context->callback     = callback->IsUndefined() ? NULL : new Nan::Callback(callback);
+	context->animation    = animation;
+	
 	uv_queue_work(uv_default_loop(), &context->request, runTextWorker, runTextCompleted);	 
 
 	info.GetReturnValue().Set(Nan::Undefined());
