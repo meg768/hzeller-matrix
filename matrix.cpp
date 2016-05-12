@@ -44,6 +44,7 @@ typedef struct {
 } HSL;
 
 
+
 static void *__matrix = 0;
 
 
@@ -272,6 +273,15 @@ protected:
 static Matrix *matrix = NULL;
 
 
+void initialize() 
+{
+	static int initialized = FALSE;
+	
+	if (!initialized) {
+		Magick::InitializeMagick(NULL);
+		initialized = TRUE;
+	}
+}
 
 void update(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
@@ -288,6 +298,8 @@ void update(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void configure(const Nan::FunctionCallbackInfo<v8::Value>& info) 
 {
 	Nan::HandleScope();
+	
+	initialize();
 	
 	if (info.Length() != 1 ) {
 		return Nan::ThrowError("configure requires an argument.");
