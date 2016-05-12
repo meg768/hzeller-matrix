@@ -355,7 +355,7 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 			matrix->drawImage(img, x, y, offsetX, offsetY);
 		}
 		
-		if (node::Buffer::HasInstance(image) ) {
+		else if (node::Buffer::HasInstance(image) ) {
 		    Magick::Blob blob(node::Buffer::Data(image), node::Buffer::Length(image));
 			Magick::Image img(blob);
 
@@ -363,7 +363,8 @@ void drawImage(const Nan::FunctionCallbackInfo<v8::Value>& info)
 
 	    }
 	    
-		return Nan::ThrowError("drawImage needs an file name of image");
+	    else
+			return Nan::ThrowError("drawImage needs an file name of image");
     	
     }
     catch (std::exception& error) {
