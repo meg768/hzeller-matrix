@@ -1,13 +1,13 @@
 
 {
 	"variables": {
-		"XXMAGICK_ROOT%": "/usr/local/Cellar/graphicsmagick/1.3.23_1/include/GraphicsMagick",
-		"MAGICK_ROOT": "/usr/include/GraphicsMagick"
+		"MAGICK_ROOT%": "/usr/local/Cellar/graphicsmagick/1.3.23_1/include/GraphicsMagick",
+		"XXMAGICK_ROOT": "/usr/include/GraphicsMagick"
 	},
     "targets": [
         {
             "target_name": "matrix",
-            "sources": [ "src/matrix.cpp" ],
+            "sources": [ "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"],
             "include_dirs": [
 	            "./hzeller/include",
 	            "<(MAGICK_ROOT)",
@@ -28,12 +28,11 @@
 			    
 			"ldflags"   : [ "<!(GraphicsMagick++-config --ldflags)" ],
 
-			"cflags"    : [ "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
-			"Xcflags"   : ["-std=c++11"],
-			"cflags!"   : [ "-fno-exceptions", "-fno-rtti"],
+			"cflags"    : [ "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"Xcflags!"   : [ "-fno-exceptions", "-fno-rtti"],
 
-			"cflags_cc" : [ "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
-			"cflags_cc!": [ "-fno-exceptions", "-fno-rtti" ], 
+			"cflags_cc" : [ "-fno-for-scope" "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"Xcflags_cc!": [ "-fno-exceptions", "-fno-rtti" ], 
             
 			    
             

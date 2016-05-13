@@ -1,7 +1,6 @@
 #ifndef _includes_h
 #define _includes_h
 
-#include <cmath>
 #include <nan.h>
 
 #include <unistd.h>
