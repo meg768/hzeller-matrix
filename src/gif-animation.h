@@ -9,7 +9,8 @@ public:
 	GifAnimation(Matrix *matrix) : FrameAnimation(matrix) {
 		_iterations = -1;
 		_fileName   = "";
-		_duration   = 0;
+		_duration   = 60;
+		_delay      = 10;
 	}
 	
 	
@@ -92,57 +93,4 @@ public:
 private:
 	string _fileName;
 };
-
-/*
-
-int main (int argc, char *argv[])
-{
-	static struct option options[] = {
-		{"config",     1, 0, 'x'},
-		{"duration",   1, 0, 'd'},
-		{"iterations", 1, 0, 'i'},
-		{"delay",      1, 0, 'z'},
-		{"file",       1, 0, 'f'},
-		{0, 0, 0, 0}
-	};
-	
-	Magick::InitializeMagick(*argv);
-	
-	Matrix matrix;
-	GifAnimation animation(&matrix);
-	
-	animation.duration(60);
-	animation.delay(10);
-
-	
-	int option = 0, index = 0;
-	
-	while ((option = getopt_long_only(argc, argv,"z:d:x:i:f:", options, &index)) != -1) {
-		switch (option) {
-			case 'x':
-				matrix.config(optarg);
-				break;
-			case 'd':
-				animation.duration(atoi(optarg));
-				break;
-			case 'z':
-				animation.delay(atof(optarg));
-				break;
-			case 'i':
-				animation.iterations(atoi(optarg));
-				break;
-			case 'f':
-				animation.fileName(optarg);
-				break;
-		}
-	}
-
-	matrix.init();
-	
-	return animation.run();
-	
-}
-
-*/
-
 
