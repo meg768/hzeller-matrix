@@ -17,6 +17,14 @@ struct ANIMATION_CONTEXT {
 
 void Addon::runAnimation(Animation *animation, v8::Local<v8::Value> callback) 
 {
+	/*
+	try {
+		
+	}
+	catch (exception &olle) {
+		fprintf(stderr, "%s", olle.what();
+	}
+	*/
 	ANIMATION_CONTEXT *context = new ANIMATION_CONTEXT();
 	context->request.data = context;
 	context->callback     = callback->IsFunction() ? new Nan::Callback(v8::Local<v8::Function>::Cast(callback)) : NULL;
@@ -177,9 +185,9 @@ NAN_METHOD(drawImage)
 
     	
     }
-    catch (std::exception& error) {
-        std::string what("Upps!"); //error.what());
-        std::string message = std::string("Failed reading image: ") + what;
+    catch (exception &error) {
+        string what = error.what();
+        string message = string("Failed reading image: ") + what;
 
 		return Nan::ThrowError(message.c_str());
     }

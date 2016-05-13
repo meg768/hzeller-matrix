@@ -1,16 +1,12 @@
 
 {
-	"variables": {
-		"XXMAGICK_ROOT%": "/usr/local/Cellar/graphicsmagick/1.3.23_1/include/GraphicsMagick",
-		"MAGICK_ROOT": "/usr/include/GraphicsMagick"
-	},
     "targets": [
         {
             "target_name": "matrix",
             "sources": [ "src/run-image.cpp", "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"],
             "include_dirs": [
 	            "./hzeller/include",
-	            "<(MAGICK_ROOT)",
+	            "<!(GraphicsMagick++-config --cppflags | grep  -o  -e '/.*')",
                 "<!(node -e \"require('nan')\")"
             ],
             "link_settings": {
@@ -35,7 +31,8 @@
 			"cflags_cc!" : [ "-fno-exceptions", "-fno-rtti" ], 
             
 			    
-            
+            "conditions": [["OS=='mac'", {"xcode_settings": {"GCC_ENABLE_CPP_EXCEPTIONS": "YES"}}]
+      ]
             
         }
     ]

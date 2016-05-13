@@ -73,7 +73,6 @@ public:
 	
 	virtual int run() {
 		
-		
 		try {
 			Matrix *matrix = Animation::matrix();
 			
@@ -170,7 +169,7 @@ public:
 			
 			
 		}
-		catch (std::exception &error) {
+		catch (exception &error) {
 			fprintf(stderr, "Could not start animation: %s\n", error.what());
 			return -1;
 		}
