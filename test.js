@@ -16,25 +16,26 @@ matrix.configure({width:32, height:32});
 //matrix.update();
 
 var options = {};
-options.textColor  = "blue";
-options.fontSize   = 20;
+options.textColor  = "rgb(255,0,0)";
+options.fontSize   = matrix.height * 0.8;
 options.delay      = 20;
-options.iterations = 2;
-options.fontName   = "./fonts/Arial-Black.ttf";
-options.fontName   = "./fonts/Impact.ttf";
+options.fontName   = "./fonts/Arial-Bold.ttf";
 
-matrix.runText(undefined, options, function(a, b){
+matrix.runGif("./animations");
+/*
+matrix.runText("Magnus Egelberg ÅÄÖ", {}, function(a, b){
 	console.log('Done!');
 	matrix.runText("YEEAAA!", {}, function(){});
-	console.log(a);
-	console.log(b);
 });
-
+*/
 //matrix.runText("*********", function(){});
 
 /*
-	setTimeout(function(){
+setTimeout(function(){
+	matrix.runText('HUU', {}, function(){});
+	console.log('HUU');
 	//matrix.stop();	
-}, 10000);
+}, 1000);
+
 
 */

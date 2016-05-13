@@ -1,3 +1,7 @@
+#ifndef _gif_animation_h
+#define _gif_animation_h
+
+
 #include "animation.h"
 
 
@@ -102,3 +106,6 @@ protected:
 	double _animationDelay;
 	int _iterations;
 };
+
+#endif
+

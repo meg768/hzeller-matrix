@@ -2,8 +2,10 @@
 
 #include "matrix.h"
 #include "text-animation.h"
-static Matrix *matrix = NULL;
+#include "gif-animation.h"
 
+static Matrix *matrix = NULL;
+static Animation *currentAnimation = NULL;
 
 void initialize() 
 {
@@ -15,28 +17,34 @@ void initialize()
 	}
 }
 
-struct RUNTEXT_CONTEXT {
+struct ANIMATION_CONTEXT {
     uv_work_t request;
     Nan::Callback *callback;
     Animation *animation;
 };
 
 
-static void runTextWorker(uv_work_t *request)
+static void runAnimation(uv_work_t *request)
 {
-    RUNTEXT_CONTEXT *context = static_cast<RUNTEXT_CONTEXT*>(request->data);
+    ANIMATION_CONTEXT *context = static_cast<ANIMATION_CONTEXT*>(request->data);
 
-	context->animation->run();
+	if (currentAnimation != 0)
+		currentAnimation->stop();
+		
+	currentAnimation = context->animation;
+	
+	currentAnimation->run();
 }
 
-static void runTextCompleted(uv_work_t *request, int status)
+
+static void animationCompleted(uv_work_t *request, int status)
 {
 	Nan::HandleScope scope;
 	
    // This is what is called after the 'Work' is done, you can now move any data from 
     // Baton to the V8/Nodejs space and invoke call back functions
 
-    RUNTEXT_CONTEXT *context = static_cast<RUNTEXT_CONTEXT*>(request->data);
+    ANIMATION_CONTEXT *context = static_cast<ANIMATION_CONTEXT*>(request->data);
 
 	if (context->callback != NULL) {
 		v8::TryCatch try_catch;
@@ -67,18 +75,18 @@ NAN_METHOD(runText)
 	
 	int argc = info.Length();
 
-	v8::Local<v8::String> text;
-	v8::Local<v8::Object> options;
-	v8::Local<v8::Function> callback;
+	v8::Local<v8::Value> text      = Nan::Undefined();
+	v8::Local<v8::Value> options   = Nan::Undefined();
+	v8::Local<v8::Value> callback  = Nan::Undefined();
 
-	if (argc > 0)
+	if (argc > 0 && !info[0]->IsUndefined())
 		text = v8::Local<v8::String>::Cast(info[0]);
 	
-	if (argc > 1)
-		options = v8::Local<v8::Object>::Cast(info[1]); 	 	
+	if (argc > 1 && info[1]->IsObject())
+		options = v8::Local<v8::Value>::Cast(info[1]); 	 	
 	
-	if (argc > 2)
-		callback = v8::Local<v8::Function>::Cast(info[2]);
+	if (argc > 2 && !info[2]->IsFunction())
+		callback = v8::Local<v8::Value>::Cast(info[2]);
 
 	
 	TextAnimation *animation = new TextAnimation(matrix);
@@ -91,13 +99,13 @@ NAN_METHOD(runText)
 	v8::Local<v8::Value> fontName   = Nan::Undefined();
 
 	if (!options->IsUndefined()) {
-		duration   = options->Get(Nan::New<v8::String>("duration").ToLocalChecked());
-		delay      = options->Get(Nan::New<v8::String>("delay").ToLocalChecked());
-		iterations = options->Get(Nan::New<v8::String>("iterations").ToLocalChecked());
-		textColor  = options->Get(Nan::New<v8::String>("textColor").ToLocalChecked());
-		fontSize   = options->Get(Nan::New<v8::String>("fontSize").ToLocalChecked());
-		fontName   = options->Get(Nan::New<v8::String>("fontName").ToLocalChecked());
-		
+		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
+		duration   = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
+		delay      = object->Get(Nan::New<v8::String>("delay").ToLocalChecked());
+		iterations = object->Get(Nan::New<v8::String>("iterations").ToLocalChecked());
+		textColor  = object->Get(Nan::New<v8::String>("textColor").ToLocalChecked());
+		fontSize   = object->Get(Nan::New<v8::String>("fontSize").ToLocalChecked());
+		fontName   = object->Get(Nan::New<v8::String>("fontName").ToLocalChecked());
 	}
 
 	if (!text->IsUndefined())
@@ -121,18 +129,79 @@ NAN_METHOD(runText)
 	if (!delay->IsUndefined())
 		animation->delay(delay->Int32Value());
 
-		animation->fontName("./fonts/Impact.ttf");
-	
-	RUNTEXT_CONTEXT *context = new RUNTEXT_CONTEXT();
+
+	ANIMATION_CONTEXT *context = new ANIMATION_CONTEXT();
 	context->request.data = context;
-	context->callback     = callback->IsUndefined() ? NULL : new Nan::Callback(callback);
+	context->callback     = callback->IsFunction() ? new Nan::Callback(v8::Local<v8::Function>::Cast(callback)) : NULL;
 	context->animation    = animation;
-	
-	uv_queue_work(uv_default_loop(), &context->request, runTextWorker, runTextCompleted);	 
+
+	uv_queue_work(uv_default_loop(), &context->request, runAnimation, animationCompleted);	 
 
 	info.GetReturnValue().Set(Nan::Undefined());
 	
 }
+
+NAN_METHOD(runGif)
+{
+	Nan::HandleScope scope;
+	
+	if (matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
+	
+	int argc = info.Length();
+
+	v8::Local<v8::Value> fileName  = Nan::Undefined();
+	v8::Local<v8::Value> options   = Nan::Undefined();
+	v8::Local<v8::Value> callback  = Nan::Undefined();
+
+	if (argc > 0 && !info[0]->IsUndefined())
+		fileName = v8::Local<v8::String>::Cast(info[0]);
+	
+	if (argc > 1 && info[1]->IsObject())
+		options = v8::Local<v8::Value>::Cast(info[1]); 	 	
+	
+	if (argc > 2 && !info[2]->IsFunction())
+		callback = v8::Local<v8::Value>::Cast(info[2]);
+
+	
+	GifAnimation *animation = new GifAnimation(matrix);
+
+	v8::Local<v8::Value> duration   = Nan::Undefined();
+	v8::Local<v8::Value> delay      = Nan::Undefined();
+	v8::Local<v8::Value> iterations = Nan::Undefined();
+
+	if (!options->IsUndefined()) {
+		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
+		duration   = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
+		delay      = object->Get(Nan::New<v8::String>("delay").ToLocalChecked());
+		iterations = object->Get(Nan::New<v8::String>("iterations").ToLocalChecked());
+	}
+
+	if (!fileName->IsUndefined())
+		animation->fileName(*v8::String::Utf8Value(fileName));
+
+	if (!duration->IsUndefined())
+		animation->duration(duration->Int32Value());
+
+	if (!iterations->IsUndefined())
+		animation->iterations(iterations->Int32Value());
+
+	if (!delay->IsUndefined())
+		animation->delay(delay->Int32Value());
+
+
+	ANIMATION_CONTEXT *context = new ANIMATION_CONTEXT();
+	context->request.data = context;
+	context->callback     = callback->IsFunction() ? new Nan::Callback(v8::Local<v8::Function>::Cast(callback)) : NULL;
+	context->animation    = animation;
+
+	uv_queue_work(uv_default_loop(), &context->request, runAnimation, animationCompleted);	 
+
+	info.GetReturnValue().Set(Nan::Undefined());
+	
+}
+
 
 NAN_METHOD(update)
 {
@@ -295,6 +364,8 @@ NAN_GETTER(height)
 	info.GetReturnValue().Set(matrix->height());
 }
 
+
+
 NAN_MODULE_INIT(Init) 
 {
 	Nan::SetMethod(target, "configure", configure);
@@ -302,6 +373,7 @@ NAN_MODULE_INIT(Init)
 	Nan::SetMethod(target, "drawImage", drawImage);
 	Nan::SetMethod(target, "update", update);
 	Nan::SetMethod(target, "runText", runText);
+	Nan::SetMethod(target, "runGif", runGif);
 	
 	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(), width);
 	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), height);
