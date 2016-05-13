@@ -246,10 +246,12 @@ NAN_MODULE_INIT(initAddon)
 	//Nan::SetMethod(target, "update", update);
 
 	Nan::SetMethod(target, "configure", Addon::configure);
-	Nan::SetMethod(target, "runText", Addon::runText);
-	Nan::SetMethod(target, "runGif", Addon::runGif);
+	Nan::SetMethod(target, "runText",   Addon::runText);
+	Nan::SetMethod(target, "runGif",    Addon::runGif);
+	Nan::SetMethod(target, "runPerlin", Addon::runPerlin);
+	Nan::SetMethod(target, "runRain",   Addon::runRain);
 	
-	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(), Addon::getWidth);
+	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(),  Addon::getWidth);
 	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), Addon::getHeight);
 }
 

@@ -469,9 +469,18 @@ class PerlinAnimation : public Animation {
 	
 public:
 	PerlinAnimation(Matrix *matrix) : Animation(matrix) {
-		_delay = 10.0;
-		_mode = 0;
+		_delay    = 10.0;
+		_duration = 60;
+		_mode     = 1;
+		_pattern  = 0;
+
+		gLevels = new uint32_t[matrix->width() * matrix->height()];
 	}
+
+	virtual ~PerlinAnimation() {
+		delete _pattern;
+		delete gLevels;
+	}	
 	
 	void mode(int value) {
 		_mode = value;
@@ -479,11 +488,9 @@ public:
 	
 
 	virtual int run() {
-		gLevels = new uint32_t[_matrix->width() * _matrix->height()];
 	
-		Pattern *pattern = new Perlin (_matrix->width(), _matrix->height(), _mode); //, 8.0/64.0, 0.0125, 512.0, 0.005);
-		pattern->init ();
-		
+		_pattern = new Perlin (_matrix->width(), _matrix->height(), _mode); //, 8.0/64.0, 0.0125, 512.0, 0.005);
+		_pattern->init ();
 		
 		while (!done()) {
 	
@@ -492,19 +499,17 @@ public:
 			
 			sleep();
 			
-			pattern->next();
+			_pattern->next();
 		
 		}
-		delete pattern;
-		
-		delete [] gLevels;	
 
 		return 0;
 	}
 	
 private:
 	int _mode;
-
+	Pattern *_pattern;
+	
 };
 
 
@@ -513,24 +518,19 @@ NAN_METHOD(Addon::runPerlin)
 
 	Nan::HandleScope scope;
 	
-	if (_matrix == NULL) {
+	if (_matrix == NULL)
         return Nan::ThrowError("Matrix is not configured.");
-	}
 	
 	int argc = info.Length();
 
-	v8::Local<v8::Value> text      = Nan::Undefined();
 	v8::Local<v8::Value> options   = Nan::Undefined();
 	v8::Local<v8::Value> callback  = Nan::Undefined();
 
-	if (argc > 0 && !info[0]->IsUndefined())
-		text = v8::Local<v8::String>::Cast(info[0]);
+	if (argc > 0 && info[0]->IsObject())
+		options = v8::Local<v8::Value>::Cast(info[0]); 	 	
 	
-	if (argc > 1 && info[1]->IsObject())
-		options = v8::Local<v8::Value>::Cast(info[1]); 	 	
-	
-	if (argc > 2 && !info[2]->IsFunction())
-		callback = v8::Local<v8::Value>::Cast(info[2]);
+	if (argc > 1 && !info[1]->IsFunction())
+		callback = v8::Local<v8::Value>::Cast(info[1]);
 
 	
 	PerlinAnimation *animation = new PerlinAnimation(_matrix);

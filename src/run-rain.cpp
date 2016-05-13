@@ -112,8 +112,6 @@ public:
 	}
 
 	virtual int run() {
-		_matrix->init();
-		
 		int size = _matrix->width();
 		
 		_worms.resize(size);
@@ -149,52 +147,7 @@ protected:
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
 
-int main (int argc, char *argv[])
-{
-	static struct option options[] = {
-		{"config",     1, 0, 'x'},
-		{"duration",   1, 0, 'd'},
-		{"delay",      1, 0, 'z'},
-		{"hue",        1, 0, 'h'},
-		{0, 0, 0, 0}
-	};
-	
-	Magick::InitializeMagick(*argv);
-	
-	Matrix matrix;
-	MatrixAnimation animation(&matrix);
-
-	animation.duration(60);
-	animation.delay(0.05);
-	
-	int option = 0, index = 0;
-	
-	while ((option = getopt_long_only(argc, argv, "z:d:x:h:", options, &index)) != -1) {
-		switch (option) {
-			case 'x':
-				matrix.config(optarg);
-				break;
-			case 'd':
-				animation.duration(atoi(optarg));
-				break;
-			case 'z':
-				animation.delay(atof(optarg));
-				break;
-			case 'h':
-				animation.hue(atoi(optarg));
-				break;
-		}
-	}
-	
-	animation.run();
-	
-	
-	return 0;
-}
-
-*/
 
 NAN_METHOD(Addon::runRain)
 {
@@ -215,7 +168,7 @@ NAN_METHOD(Addon::runRain)
 	if (argc > 1 && info[1]->IsObject())
 		callback = v8::Local<v8::Value>::Cast(info[0]);
 	
-	Animation *animation = new MatrixAnimation(_matrix);
+	MatrixAnimation *animation = new MatrixAnimation(_matrix);
 
 	v8::Local<v8::Value> hue        = Nan::Undefined();
 	v8::Local<v8::Value> duration   = Nan::Undefined();
@@ -231,11 +184,11 @@ NAN_METHOD(Addon::runRain)
 	if (!duration->IsUndefined())
 		animation->duration(duration->Int32Value());
 
-	if (!duration->IsUndefined())
-		animation->duration(duration->Int32Value());
+	if (!hue->IsUndefined())
+		animation->hue(duration->Int32Value());
 
-	if (!delay->IsUndefined())
-		animation->delay(delay->Int32Value());
+	if (!delay->IsNumber())
+		animation->delay(delay->NumberValue());
 
 	runAnimation(animation, callback);
 

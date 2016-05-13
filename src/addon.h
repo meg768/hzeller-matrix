@@ -20,6 +20,7 @@ public:
 	static NAN_METHOD(runText);
 	static NAN_METHOD(runGif);
 	static NAN_METHOD(runPerlin);
+	static NAN_METHOD(runRain);
 	
 	static void runAnimation(Animation *animation, v8::Local<v8::Value> callback);
 	
