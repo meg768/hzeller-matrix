@@ -187,7 +187,7 @@ NAN_METHOD(Addon::runRain)
 	if (!hue->IsUndefined())
 		animation->hue(duration->Int32Value());
 
-	if (!delay->IsNumber())
+	if (!delay->IsUndefined())
 		animation->delay(delay->NumberValue());
 
 	runAnimation(animation, callback);

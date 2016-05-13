@@ -550,7 +550,7 @@ NAN_METHOD(Addon::runPerlin)
 		animation->duration(duration->Int32Value());
 
 	if (!delay->IsUndefined())
-		animation->delay(delay->Int32Value());
+		animation->delay(delay->NumberValue());
 
 	if (!mode->IsUndefined())
 		animation->mode(mode->Int32Value());
@@ -559,69 +559,3 @@ NAN_METHOD(Addon::runPerlin)
 
 	info.GetReturnValue().Set(Nan::Undefined());	
 }
-/*
-
-int main (int argc, char *argv[])
-{
-	static struct option options[] = {
-		{"config",     1, 0, 'x'},
-		{"duration",   1, 0, 'd'},
-		{"delay",      1, 0, 'z'},
-		{"mode",       1, 0, 'm'},
-		{0, 0, 0, 0}
-	};
-	
-	Magick::InitializeMagick(*argv);
-
-	int option = 0, index = 0;
-	int mode = 2;
-
-	
-	Timer timer;
-	timer.delay(10.0);
-	
-	while ((option = getopt_long_only(argc, argv, "x:d:z:m", options, &index)) != -1) {
-		switch (option) {
-			case 'x':
-				matrix.config(optarg);
-				break;
-			case 'd':
-				timer.duration(atoi(optarg));
-				break;
-			case 'm':
-				mode = atoi(optarg);
-				break;
-			case 'z':
-				timer.delay(atof(optarg));
-				break;
-		}
-	}
-	
-	matrix.init();
-	
-	gLevels = new uint32_t[matrix.width() * matrix.height()];
-
-	pattern = new Perlin (matrix.width(), matrix.height(), mode); //, 8.0/64.0, 0.0125, 512.0, 0.005);
-	pattern->init ();
-	
-	
-	while (!timer.expired()) {
-
-		matrix.fill(gLevels);
-		
-		matrix.refresh();
-		timer.sleep();
-		
-		pattern->next();
-	
-	}
-	
-	matrix.clear();
-	matrix.refresh();
-
-	delete [] gLevels;	
-    return 0;
-}
-
-
-*/

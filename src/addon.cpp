@@ -250,6 +250,7 @@ NAN_MODULE_INIT(initAddon)
 	Nan::SetMethod(target, "runGif",    Addon::runGif);
 	Nan::SetMethod(target, "runPerlin", Addon::runPerlin);
 	Nan::SetMethod(target, "runRain",   Addon::runRain);
+	Nan::SetMethod(target, "runImage",  Addon::runImage);
 	
 	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(),  Addon::getWidth);
 	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), Addon::getHeight);

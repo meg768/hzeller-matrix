@@ -10,9 +10,6 @@ class Addon {
 public:
 	Addon();
 	
-	static int isConfigured();
-
-
 	static NAN_GETTER(getWidth);
 	static NAN_GETTER(getHeight);
 
@@ -21,6 +18,7 @@ public:
 	static NAN_METHOD(runGif);
 	static NAN_METHOD(runPerlin);
 	static NAN_METHOD(runRain);
+	static NAN_METHOD(runImage);
 	
 	static void runAnimation(Animation *animation, v8::Local<v8::Value> callback);
 	

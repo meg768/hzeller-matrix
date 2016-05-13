@@ -49,7 +49,7 @@ NAN_METHOD(Addon::runGif)
 		animation->iterations(iterations->Int32Value());
 
 	if (!delay->IsUndefined())
-		animation->delay(delay->Int32Value());
+		animation->delay(delay->NumberValue());
 
 	runAnimation(animation, callback);
 

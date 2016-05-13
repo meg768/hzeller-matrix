@@ -7,7 +7,7 @@
     "targets": [
         {
             "target_name": "matrix",
-            "sources": [ "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"],
+            "sources": [ "src/run-image.cpp", "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"],
             "include_dirs": [
 	            "./hzeller/include",
 	            "<(MAGICK_ROOT)",

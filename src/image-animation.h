@@ -76,10 +76,8 @@ public:
 		
 		try {
 			Matrix *matrix = Animation::matrix();
-			matrix->init();
 			
 			sample();
-			
 			
 			Magick::Image image = _image;
 			
@@ -89,9 +87,7 @@ public:
 			int imageWidth   = image.columns();
 			int imageHeight  = image.rows();
 			
-			
 			int duration = Animation::duration();
-			
 			
 			if (_scroll != "none") {
 				if (_scroll == "auto") {

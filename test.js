@@ -21,8 +21,8 @@ options.fontSize   = matrix.height * 0.8;
 options.delay      = 20;
 options.fontName   = "./fonts/Arial-Bold.ttf";
 
-matrix.runRain({duration:10, hue: 120}, function(){});
-//matrix.runGif("./animations", {delay:10});
+//matrix.runRain({duration:10, hue: 120}, function(){});
+matrix.runImage("./images/emoji.png", {delay:"8.1", hold:"4.4"});
 /*
 matrix.runText("Magnus Egelberg ÅÄÖ", {}, function(a, b){
 	console.log('Done!');
