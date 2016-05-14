@@ -1,12 +1,22 @@
 {
 	"name": "hzeller-matrix",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Raspberry PI RGB Matrix addon for Node",
+	"main": "rest-request.js",
+	"scripts": {
+		"test": "sudo node test/test.js"
+	},
 	"dependencies": {
 		"nan": "^2.3.3"
 	},
-		
-	"scripts": {
-		"test": "sudo node test.js"
-	}
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/meg768/node-hzeller-matrix.git"
+	},
+	"author": "Magnus Egelberg",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/meg768/node-hzeller-matrix/issues"
+	},
+	"homepage": "https://github.com/meg768/node-hzeller-matrix#readme"
 }
