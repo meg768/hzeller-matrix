@@ -1,4 +1,4 @@
-var matrix = require('./build/Release/hzeller-matrix');
+var matrix = require('../build/Release/matrix');
 var fs = require('fs');
 
 function draw(red, green, blue) {
