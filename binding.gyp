@@ -7,6 +7,8 @@
             	"hzeller/lib/led-matrix.cc",
             	"hzeller/lib/thread.cc",
             	"hzeller/lib/framebuffer.cc",
+            	"hzeller/lib/transformer.cc",
+            	"hzeller/lib/bdf-font.cc",
             	"src/run-image.cpp", "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"
             ],
 
@@ -19,6 +21,8 @@
             	"hzeller/lib/led-matrix.cc",
             	"hzeller/lib/thread.cc",
             	"hzeller/lib/framebuffer.cc",
+            	"hzeller/lib/transformer.cc",
+            	"hzeller/lib/bdf-font.cc",
             	"src/run-image.cpp", "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"
             ],
             "include_dirs": [
@@ -33,8 +37,7 @@
 	            
 				"ldflags": [
 	            	"-L<!(pwd)/hzeller/lib",
-					"-Wl,-rpath,<!(pwd)/hzeller/lib",
-					"-lrt", "-lm", "-lpthread"
+					"-Wl,-rpath,<!(pwd)/hzeller/lib"
 				]
 	            
             },
