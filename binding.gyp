@@ -26,7 +26,7 @@
             ],
             "link_settings": {
 	            "libraries": [ 
-		            "<!(pwd)/hzeller/lib/librgbmatrix.a"
+		            "<!(pwd)/hzeller/lib/librgbmatrix.a",
 					"<!(GraphicsMagick++-config --libs)"           	
 	            ],
 	            
