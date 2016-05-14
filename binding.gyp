@@ -25,17 +25,18 @@
 	            
 				"ldflags": [
 	            	"-L<!(pwd)/hzeller/lib",
-					"-Wl,-rpath,<!(pwd)/hzeller/lib"
+					"-Wl,-rpath,<!(pwd)/hzeller/lib",
+					"-lrt", "-lm", "-lpthread"
 				]
 	            
             },
 			    
-			"ldflags"    : [ "<!(GraphicsMagick++-config --ldflags)" ],
+			"ldflags"    : [ "-lrt", "-lm", "-lpthread", "<!(GraphicsMagick++-config --ldflags)" ],
 
-			"cflags"     : [ "-Wall -O3 -g -fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"cflags"     : [ "-Wall", "-O3",  "-g", "-fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
 			"cflags!"    : [ "-fno-exceptions", "-fno-rtti"],
 
-			"cflags_cc"  : [ "-Wall -O3 -g -fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"cflags_cc"  : [ "-Wall", "-O3",  "-g", "-fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
 			"cflags_cc!" : [ "-fno-exceptions", "-fno-rtti" ], 
             
 			    
