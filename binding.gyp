@@ -9,6 +9,7 @@
             	"hzeller/lib/framebuffer.cc",
             	"hzeller/lib/transformer.cc",
             	"hzeller/lib/bdf-font.cc",
+            	"-std=c++11", 
             	"src/run-image.cpp", "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"
             ],
 
@@ -44,10 +45,10 @@
 			    
 			"ldflags"    : [ "-lrt", "-lm", "-lpthread", "<!(GraphicsMagick++-config --ldflags)" ],
 
-			"cflags"     : [ "-Wall", "-O3",  "-g", "-fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"cflags"     : [ "-Wall", "-O3",  "-g", "-fPIC", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
 			"cflags!"    : [ "-O2", "-fno-exceptions", "-fno-rtti"],
 
-			"cflags_cc"  : [ "-Wall", "-O3",  "-g", "-fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"cflags_cc"  : [ "-Wall", "-O3",  "-g", "-fPIC", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
 			"cflags_cc!" : [ "-O2", "-fno-exceptions", "-fno-rtti" ], 
             
 			    
