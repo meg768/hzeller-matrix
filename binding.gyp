@@ -17,13 +17,6 @@
         {
             "target_name": "matrix",
             "sources": [ 
-            	"hzeller/lib/gpio.cc",
-            	"hzeller/lib/graphics.cc",
-            	"hzeller/lib/led-matrix.cc",
-            	"hzeller/lib/thread.cc",
-            	"hzeller/lib/framebuffer.cc",
-            	"hzeller/lib/transformer.cc",
-            	"hzeller/lib/bdf-font.cc",
             	"src/run-image.cpp", "src/run-rain.cpp", "src/addon.cpp", "src/run-text.cpp", "src/run-gif.cpp", "src/run-perlin.cpp"
             ],
             "include_dirs": [
@@ -33,6 +26,7 @@
             ],
             "link_settings": {
 	            "libraries": [ 
+		            "<!(pwd)/hzeller/lib/librgbmatrix.a"
 					"<!(GraphicsMagick++-config --libs)"           	
 	            ],
 	            
