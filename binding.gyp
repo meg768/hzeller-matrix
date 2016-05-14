@@ -32,10 +32,10 @@
 			    
 			"ldflags"    : [ "<!(GraphicsMagick++-config --ldflags)" ],
 
-			"cflags"     : [ "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"cflags"     : [ "-Wall -O3 -g -fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
 			"cflags!"    : [ "-fno-exceptions", "-fno-rtti"],
 
-			"cflags_cc"  : [ "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
+			"cflags_cc"  : [ "-Wall -O3 -g -fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
 			"cflags_cc!" : [ "-fno-exceptions", "-fno-rtti" ], 
             
 			    
