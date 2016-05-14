@@ -38,10 +38,10 @@
 			"ldflags"    : [ "-lrt", "-lm", "-lpthread", "<!(GraphicsMagick++-config --ldflags)" ],
 
 			"cflags"     : [ "-Wall", "-O3",  "-g", "-fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
-			"cflags!"    : [ "-fno-exceptions", "-fno-rtti"],
+			"cflags!"    : [ "-O2", "-fno-exceptions", "-fno-rtti"],
 
 			"cflags_cc"  : [ "-Wall", "-O3",  "-g", "-fPIC", "-std=c++11", "<!(GraphicsMagick++-config --cppflags)", "<!(GraphicsMagick++-config --cxxflags)" ],
-			"cflags_cc!" : [ "-fno-exceptions", "-fno-rtti" ], 
+			"cflags_cc!" : [ "-O2", "-fno-exceptions", "-fno-rtti" ], 
             
 			    
             "conditions": [["OS=='mac'", {"xcode_settings": {"GCC_ENABLE_CPP_EXCEPTIONS": "YES"}}]
