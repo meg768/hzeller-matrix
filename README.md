@@ -28,3 +28,6 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 	runRain(options, callback)
 	runPerlin(options, callback)
 	
+# See also
+
+Check out https://github.com/meg768/hzeller-matrix-example for more information.
