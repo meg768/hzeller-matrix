@@ -1,4 +1,4 @@
-# hzeller-matrix
+# Hzeller Matrix
 A module for generating animations on a Raspberry PI.
 
 # 2016-04-15
