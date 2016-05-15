@@ -22,11 +22,25 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 	
 # Methods
 
-	runText(text, options, callback)
-	runImage(imageFile, options, callback)
-	runAmination(gifFile, options, callback)
-	runRain(options, callback)
-	runPerlin(options, callback)
+## matrix.runText(text, options, callback)
+	
+This method displays scrolling text. The //options// argument
+has the following values.
+
+
+Property name | Description
+------------- | -------------
+textColor     | Changes text color. Default is red.
+fontName      | Use the specified TrueType font.
+fontSize      | Change the font size.
+duration      | Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
+
+	
+	
+## runImage(imageFile, options, callback)
+## runAmination(gifFile, options, callback)
+## runRain(options, callback)
+## runPerlin(options, callback)
 	
 # See also
 
