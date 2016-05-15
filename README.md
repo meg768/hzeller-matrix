@@ -23,11 +23,11 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 This method displays scrolling text. The *options* argument
 has the following values.
 
-- textColor - Changes text color. Default is red.
-- fontName - Use the specified TrueType font.
-- fontSize - Change the font size.
-- duration - Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
-- delay - Animation delay during display loop. Decimal value >= 0. 
+- **textColor** - Changes text color. Default is red.
+- **fontName** - Use the specified TrueType font.
+- **fontSize** - Change the font size.
+- **duration** - Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
+- **delay** - Animation delay during display loop. Decimal value >= 0. 
 
 ### runImage(image, options, callback)
 
@@ -44,22 +44,20 @@ Displays a GIF-animation. Options are
 
 ### runRain(options, callback)
 
-Displays i Matrix-like rain animation.
+Displays a Matrix-like rain animation. The **options** are as follows.
 
-Option        | Description
-------------- | -------------
-duration      | Run no longer this number of seconds. Default is 60 seconds.
-delay         | Animation de lay during display loop.
+- **hue** - Specifies the hue of the rain. If not specified, it will use the time of day to specify the hue.
+- **duration** - Run the animation for **duration** seconds. -1 == inifinity.
+- **delay** - Animation each animation frame for **delay** milliseconds.
+
 
 ### runPerlin(options, callback)
 
-Runs a perlin animation.
+Runs a perlin animation. 
 
-Option        | Description
-------------- | -------------
-mode          | Valid modes are 1, 2 or 3.
-duration      | Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
-delay         | Animation delay during display loop. Decimal value >= 0. 
+- **mode** - Valid modes are 1, 2 or 3.
+- **duration** - Run the animation for **duration** seconds. -1 == inifinity.
+- **delay** - Animation each animation frame for **delay** milliseconds.
 	
 # See also
 
