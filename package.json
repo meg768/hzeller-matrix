@@ -11,12 +11,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/meg768/node-hzeller-matrix.git"
+		"url": "git+https://github.com/meg768/hzeller-matrix.git"
 	},
 	"author": "meg768",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/meg768/node-hzeller-matrix/issues"
+		"url": "https://github.com/meg768/hzeller-matrix/issues"
 	},
-	"homepage": "https://github.com/meg768/node-hzeller-matrix#readme"
+	"homepage": "https://github.com/meg768/hzeller-matrix#readme"
 }
