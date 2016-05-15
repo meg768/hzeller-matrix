@@ -4,7 +4,8 @@
 	"description": "Raspberry PI RGB Matrix addon for Node",
 	"main": "rest-request.js",
 	"scripts": {
-		"test": "sudo node test/test.js"
+		"test": "sudo node test/test.js",
+		"install": "make -C hzeller/lib && node-gyp rebuild"
 	},
 	"dependencies": {
 		"nan": "^2.3.3"

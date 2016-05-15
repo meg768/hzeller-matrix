@@ -1,0 +1,77 @@
+g++ '-DNODE_GYP_MODULE_NAME=hzeller' 
+'-D_LARGEFILE_SOURCE' '-D_FILE_OFFSET_BITS=64' 
+-I/home/pi/.node-gyp/5.11.1/include/node 
+-I/home/pi/.node-gyp/5.11.1/src 
+-I/home/pi/.node-gyp/5.11.1/deps/uv/include 
+-I/home/pi/.node-gyp/5.11.1/deps/v8/include 
+-I../hzeller/include  
+-fPIC -Wall -Wall -O3 -g -fPIC -O3  -MMD -MF 
+./Release/.deps/Release/obj.target/hzeller/hzeller/lib/gpio.o.d.raw  
+ -c -o Release/obj.target/hzeller/hzeller/lib/gpio.o ../hzeller/lib/gpio.cc
+ 
+ 
+             "dependencies": [
+	            "hzeller"
+            ],
+
+ 
+		{
+            "target_name": "hzeller",
+            "type": "static_library",
+            
+            "sources": [ 
+            	"hzeller/lib/gpio.cc",
+            	"hzeller/lib/graphics.cc",
+            	"hzeller/lib/led-matrix.cc",
+            	"hzeller/lib/thread.cc",
+            	"hzeller/lib/framebuffer.cc",
+            	"hzeller/lib/transformer.cc",
+            	"hzeller/lib/bdf-font.cc"
+            ],
+            
+            "include_dirs": [
+	            "./hzeller/include"
+            ],
+
+			"cflags"      : [ "-Wall -O3 -g -fPIC" ],
+			"cflags!"     : [ "-std=gnu++0x", "-pthread", "-Wno-unused-parameter", "-Wextra", "-fno-omit-frame-pointer", "-fno-exceptions", "-fno-rtti" ], 
+
+			"cflags_cc"   : [ ],
+			"cflags_cc!"  : [ "-std=gnu++0x", "-pthread", "-Wno-unused-parameter", "-Wextra", "-fno-omit-frame-pointer", "-fno-exceptions", "-fno-rtti" ], 
+            
+			    
+            "conditions": [["OS=='mac'", {"xcode_settings": {"GCC_ENABLE_CPP_EXCEPTIONS": "YES"}}]]
+	        
+        }
+        
+        
+        
+        
+        
+        		{
+            "target_name": "hzeller",
+            "type": "static_library",
+            
+            "sources": [ 
+            	"hzeller/lib/gpio.cc",
+            	"hzeller/lib/graphics.cc",
+            	"hzeller/lib/led-matrix.cc",
+            	"hzeller/lib/thread.cc",
+            	"hzeller/lib/framebuffer.cc",
+            	"hzeller/lib/transformer.cc",
+            	"hzeller/lib/bdf-font.cc"
+            ],
+            
+            "include_dirs": [
+	            "./hzeller/include"
+            ],
+
+			"cflags"      : [ "-Wall -O3 -g -fPIC" ],
+			"cflags!"     : [ "-std=gnu++0x", "-pthread", "-Wno-unused-parameter", "-Wextra", "-fno-omit-frame-pointer", "-fno-exceptions", "-fno-rtti" ], 
+
+            
+			    
+            "conditions": [["OS=='mac'", {"xcode_settings": {"GCC_ENABLE_CPP_EXCEPTIONS": "YES"}}]]
+	        
+        }
+
