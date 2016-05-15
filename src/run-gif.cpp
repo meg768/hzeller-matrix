@@ -42,14 +42,22 @@ NAN_METHOD(Addon::runGif)
 	if (!fileName->IsUndefined())
 		animation->fileName(*v8::String::Utf8Value(fileName));
 
-	if (!duration->IsUndefined())
+	if (!duration->IsUndefined()) {
+		fprintf(stdout, "duration set to %d\n", duration->Int32Value());
 		animation->duration(duration->Int32Value());
+	}
 
-	if (!iterations->IsUndefined())
+	if (!iterations->IsUndefined()) {
+		fprintf(stdout, "iterations set to %d\n", iterations->Int32Value());
 		animation->iterations(iterations->Int32Value());
+		
+	}
 
-	if (!delay->IsUndefined())
+	if (!delay->IsUndefined()) {
+		fprintf(stdout, "delay set to %f\n", delay->NumberValue());
 		animation->delay(delay->NumberValue());
+		
+	}
 
 	runAnimation(animation, callback);
 

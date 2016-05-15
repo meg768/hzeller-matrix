@@ -1,5 +1,6 @@
 
 {
+
     "targets": [
         {
             "target_name": "hzeller-matrix",
@@ -14,6 +15,7 @@
             ],
 
             "include_dirs": [
+	            "<!(GraphicsMagick++-config --cppflags | grep -o -e '/.*')",
 	            "./hzeller/include",
                 "<!(node -e \"require('nan')\")"
             ],
