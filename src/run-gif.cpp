@@ -43,8 +43,15 @@ NAN_METHOD(Addon::runGif)
 		animation->fileName(*v8::String::Utf8Value(fileName));
 
 	if (!duration->IsUndefined()) {
-		fprintf(stdout, "duration set to %d\n", duration->Int32Value());
-		animation->duration(duration->Int32Value());
+		//int value = (v8::Local<v8::Integer>::Cast(duration))->IntegerValue();
+		string strValue = *v8::String::Utf8Value(duration);
+		
+		fprintf(stdout, "string value is %s\n", strValue.c_str());
+		
+		int value = atoi(*v8::String::Utf8Value(duration));
+		
+		fprintf(stdout, "duration set to %d\n", value);
+		animation->duration(value);
 	}
 
 	if (!iterations->IsUndefined()) {
