@@ -8,21 +8,23 @@ Work in progress.
 # Installation
 	npm install hzeller-matrix --save
 
+Before you install, make sure you have GraphicsMagick installed on the Pi.
+
+	$ sudo aptitude update
+	$ sudo aptitude install libgraphicsmagick++1-dev
+
 # Usage
 
-	var matrix = require('hzeller-matrix');
-	
-	matrix.configure(32, 32);
-	matrix.runText('Hello');
+	var Matrix = require('hzeller-matrix');
+	var matrix = new Matrix({width:32, height:32});
+
+	matrix.runText('Hello World');
 	
 # Methods
 
-	configure(width, height)
 	runText(text, options, callback)
-	runImage(fileName, options, callback)
-	runGif(fileName, options, callback)
-	
-# Build instructions
-
-Currently it does not build automatically for npm.
+	runImage(imageFile, options, callback)
+	runAmination(gifFile, options, callback)
+	runRain(options, callback)
+	runPerlin(options, callback)
 	

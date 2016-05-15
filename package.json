@@ -1,7 +1,8 @@
 {
 	"name": "hzeller-matrix",
-	"version": "1.0.3",
-	"description": "Raspberry PI RGB Matrix addon for Node",
+	"version": "1.0.5",
+	"description": "Raspberry Pi RGB Matrix addon for Node",
+	"main": "hzeller-matrix.js",
 	"scripts": {
 		"install": "make -C hzeller/lib && node-gyp rebuild"
 	},
