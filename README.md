@@ -24,29 +24,44 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 
 ### matrix.runText(text, options, callback)
 
-Argument      | Description
-------------- | -------------
-text          | The text to display.
-options       | See below.
-callback      | Function to be called when finished.
-	
-This method displays scrolling text. The //options// argument
+This method displays scrolling text. The *options* argument
 has the following values.
 
-
-Property name | Description
+Option        | Description
 ------------- | -------------
 textColor     | Changes text color. Default is red.
 fontName      | Use the specified TrueType font.
 fontSize      | Change the font size.
 duration      | Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
+delay         | Animation delay during display loop. Decimal value >= 0. 
 
-	
-	
-## runImage(imageFile, options, callback)
-## runAmination(gifFile, options, callback)
-## runRain(options, callback)
-## runPerlin(options, callback)
+### runImage(image, options, callback)
+
+Display an image. The image parameter may be a string representing the file 
+name or a JavaScript **Buffer** object.
+
+### runAmination(gifFile, options, callback)
+
+Displays a GIF-animation.
+
+### runRain(options, callback)
+
+Displays i Matrix-like rain animation.
+
+Option        | Description
+------------- | -------------
+duration      | Run no longer this number of seconds. Default is 60 seconds.
+delay         | Animation delay during display loop.
+
+### runPerlin(options, callback)
+
+Runs a perlin animation.
+
+Option        | Description
+------------- | -------------
+mode          | Valid modes are 1, 2 or 3.
+duration      | Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
+delay         | Animation delay during display loop. Decimal value >= 0. 
 	
 # See also
 
