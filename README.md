@@ -1,10 +1,6 @@
 # Hzeller Matrix
 A module for generating animations on a Raspberry PI.
 
-# 2016-04-15
-Work in progress.
-
-
 # Installation
 	npm install hzeller-matrix --save
 
@@ -27,13 +23,11 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 This method displays scrolling text. The *options* argument
 has the following values.
 
-Option        | Description
-------------- | -------------
-textColor     | Changes text color. Default is red.
-fontName      | Use the specified TrueType font.
-fontSize      | Change the font size.
-duration      | Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
-delay         | Animation delay during display loop. Decimal value >= 0. 
+- textColor - Changes text color. Default is red.
+- fontName - Use the specified TrueType font.
+- fontSize - Change the font size.
+- duration - Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
+- delay - Animation delay during display loop. Decimal value >= 0. 
 
 ### runImage(image, options, callback)
 
@@ -42,7 +36,11 @@ name or a JavaScript **Buffer** object.
 
 ### runAmination(gifFile, options, callback)
 
-Displays a GIF-animation.
+Displays a GIF-animation. Options are
+
+- duration 
+- delay
+- iterations
 
 ### runRain(options, callback)
 
@@ -51,7 +49,7 @@ Displays i Matrix-like rain animation.
 Option        | Description
 ------------- | -------------
 duration      | Run no longer this number of seconds. Default is 60 seconds.
-delay         | Animation delay during display loop.
+delay         | Animation de lay during display loop.
 
 ### runPerlin(options, callback)
 

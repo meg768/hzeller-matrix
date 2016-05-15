@@ -75,19 +75,18 @@ void Addon::animationCompleted(uv_work_t *request, int status)
 
 }
 
-/*
-NAN_METHOD(update)
+NAN_METHOD(Addon::update)
 {
 	
-	if (matrix == NULL) {
+	if (_matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
 
-	matrix->refresh();
+	_matrix->refresh();
 
 	info.GetReturnValue().Set(Nan::Undefined());
 };
-*/
+
 
 NAN_METHOD(Addon::configure)
 {
@@ -119,14 +118,13 @@ NAN_METHOD(Addon::configure)
 	info.GetReturnValue().Set(Nan::Undefined());
 };
 
-/*
-NAN_METHOD(drawImage)
+NAN_METHOD(Addon::drawImage)
 {
 	Nan::HandleScope();
 
 	int argc = info.Length();
 	
-	if (matrix == NULL) {
+	if (_matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
 
@@ -180,7 +178,7 @@ NAN_METHOD(drawImage)
 		Magick::Image tmp(Magick::Geometry(img.columns(), img.rows()), "black");
 		tmp.composite(img, 0, 0, Magick::OverCompositeOp);
 			
-		matrix->drawImage(tmp, x, y, offsetX, offsetY);
+		_matrix->drawImage(tmp, x, y, offsetX, offsetY);
 
 
     	
@@ -199,11 +197,10 @@ NAN_METHOD(drawImage)
 
 };
 
-*/
-/*
-NAN_METHOD(drawPixel) {
 
-	if (matrix == NULL) {
+NAN_METHOD(Addon::drawPixel) {
+
+	if (_matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
 
@@ -218,12 +215,12 @@ NAN_METHOD(drawPixel) {
 	int g = info[3]->IntegerValue();
 	int b = info[4]->IntegerValue();
 
-	matrix->setPixel(x, y, r, g, b);	
+	_matrix->setPixel(x, y, r, g, b);	
 
 	info.GetReturnValue().Set(Nan::Undefined());
 
 };
-*/
+
 
 NAN_GETTER(Addon::getWidth)
 {
@@ -253,12 +250,16 @@ NAN_MODULE_INIT(initAddon)
 	//Nan::SetMethod(target, "drawImage", drawImage);
 	//Nan::SetMethod(target, "update", update);
 
-	Nan::SetMethod(target, "configure", Addon::configure);
-	Nan::SetMethod(target, "runText",   Addon::runText);
-	Nan::SetMethod(target, "runGif",    Addon::runGif);
-	Nan::SetMethod(target, "runPerlin", Addon::runPerlin);
-	Nan::SetMethod(target, "runRain",   Addon::runRain);
-	Nan::SetMethod(target, "runImage",  Addon::runImage);
+	Nan::SetMethod(target, "configure",  Addon::configure);
+	Nan::SetMethod(target, "runText",    Addon::runText);
+	Nan::SetMethod(target, "runGif",     Addon::runGif);
+	Nan::SetMethod(target, "runPerlin",  Addon::runPerlin);
+	Nan::SetMethod(target, "runRain",    Addon::runRain);
+	Nan::SetMethod(target, "runImage",   Addon::runImage);
+
+	Nan::SetMethod(target, "drawImage",  Addon::drawImage);
+	Nan::SetMethod(target, "drawPixel",  Addon::drawPixel);
+	Nan::SetMethod(target, "update",     Addon::update);
 	
 	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(),  Addon::getWidth);
 	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), Addon::getHeight);

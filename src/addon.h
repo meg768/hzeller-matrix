@@ -19,6 +19,9 @@ public:
 	static NAN_METHOD(runPerlin);
 	static NAN_METHOD(runRain);
 	static NAN_METHOD(runImage);
+	static NAN_METHOD(drawImage);
+	static NAN_METHOD(drawPixel);
+	static NAN_METHOD(update);
 	
 	static void runAnimation(Animation *animation, v8::Local<v8::Value> callback);
 	
