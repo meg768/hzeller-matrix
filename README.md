@@ -20,9 +20,15 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 
 	matrix.runText('Hello World');
 	
-# Methods
+## Methods
 
-## matrix.runText(text, options, callback)
+### matrix.runText(text, options, callback)
+
+Argument      | Description
+------------- | -------------
+text          | The text to display.
+options       | See below.
+callback      | Function to be called when finished.
 	
 This method displays scrolling text. The //options// argument
 has the following values.
