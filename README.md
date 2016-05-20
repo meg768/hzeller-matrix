@@ -1,5 +1,7 @@
 # Hzeller Matrix
 A module for generating animations on a Raspberry PI.
+Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix. 
+
 
 ## Installation
 	npm install hzeller-matrix --save
