@@ -18,14 +18,6 @@ public:
 		Magick::Image image;
 		image.read(value);
 
-		if (false) {
-			Magick::Image tmp;
-			tmp.read("./A.png");
-			image.rotate(45);
-			tmp.composite(image, 0, 0, Magick::OverCompositeOp);
-			
-			image = tmp;
-		}
 
 		// Convert transparent PNG:s
 		if (true) {
