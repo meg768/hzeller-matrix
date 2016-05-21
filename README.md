@@ -60,7 +60,7 @@ The **callback** argument is called when the animation completes.
 The **options** argument may have the following values.
 
 - **scroll** - Specifies the direction to scroll the image. Valid values are 'horizontal', 'vertical' or 'auto'. Default is 'horizontal'.
-- **hold** - Specifies the time, in seconds, to pause after scroll has finished.
+- **pause** - Specifies the time, in seconds, to pause after scroll has finished.
 - **duration** - Number of seconds to animate. Default is 60 seconds.
 - **delay** - Animation delay during display loop. 
 - **iterations** - Number of iterations to animate. Default is -1, that is infinite. 
