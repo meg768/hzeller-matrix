@@ -488,8 +488,6 @@ public:
 	
 
 	virtual int run() {
-		return 0;
-	
 		_pattern = new Perlin (_matrix->width(), _matrix->height(), _mode); //, 8.0/64.0, 0.0125, 512.0, 0.005);
 		_pattern->init ();
 		

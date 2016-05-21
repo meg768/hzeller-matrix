@@ -31,7 +31,7 @@ var Matrix = module.exports = function(config) {
 	}
 
 	this.runPerlin = function() {
-		return matrix.runImage.apply(this, arguments);
+		return matrix.runPerlin.apply(this, arguments);
 	}
 
 	this.runRain = function() {
