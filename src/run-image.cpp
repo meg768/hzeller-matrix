@@ -37,6 +37,7 @@ NAN_METHOD(Addon::runImage)
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
 	v8::Local<v8::Value> scroll     = Nan::Undefined();
+	v8::Local<v8::Value> pause      = Nan::Undefined();
 	v8::Local<v8::Value> hold       = Nan::Undefined();
 
 	if (!options->IsUndefined()) {
@@ -45,6 +46,7 @@ NAN_METHOD(Addon::runImage)
 		delay      = object->Get(Nan::New<v8::String>("delay").ToLocalChecked());
 		scroll     = object->Get(Nan::New<v8::String>("scroll").ToLocalChecked());
 		hold       = object->Get(Nan::New<v8::String>("hold").ToLocalChecked());
+		pause      = object->Get(Nan::New<v8::String>("pause").ToLocalChecked());
 	}
 
 	if (!fileName->IsUndefined())
@@ -60,7 +62,10 @@ NAN_METHOD(Addon::runImage)
 		animation->delay(delay->NumberValue());
 
 	if (!hold->IsUndefined())
-		animation->hold(hold->NumberValue());
+		animation->pause(hold->NumberValue());
+
+	if (!pause->IsUndefined())
+		animation->pause(hold->NumberValue());
 
 	runAnimation(animation, callback);
 
