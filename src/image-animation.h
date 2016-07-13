@@ -80,14 +80,20 @@ public:
 
 			int duration = Animation::duration();
 
+			if (_scroll == "horizontal")
+				_scroll = "left";
+
+			if (_scroll == "vertical")
+				_scroll = "up";
+
 			if (_scroll != "none") {
 				if (_scroll == "auto") {
 					if (imageWidth > imageHeight)
-						_scroll = "horizontal";
+						_scroll = "left";
 					else if (imageWidth < imageHeight)
-						_scroll = "vertical";
+						_scroll = "up";
 					else
-						_scroll = "horizontal";
+						_scroll = "left";
 				}
 			}
 
@@ -97,6 +103,7 @@ public:
 			int scrollDown       = _scroll == "down";
 			int scrollVertical   = scrollUp || scrollDown;
 			int scrollHorizontal = scrollLeft || scrollRight;
+/*
 
 			if (_scroll == "horizontal") {
 
@@ -125,7 +132,8 @@ public:
 
 				}
 			}
-			else if (_scroll == "vertical") {
+
+			if (_scroll == "vertical") {
 
 				if (true) {
 					Magick::Image img(Magick::Geometry(imageWidth, imageHeight + 2 * matrixHeight), "black");
@@ -152,16 +160,18 @@ public:
 
 				}
 			}
-			else if (scrollVertical || scrollHorizontal) {
+*/
 
-				if (scrollUp || scrollDown) {
+			if (scrollVertical || scrollHorizontal) {
+
+				if (scrollVertical) {
 					Magick::Image img(Magick::Geometry(imageWidth, imageHeight + 2 * matrixHeight), "black");
 					img.composite(image, 0, matrixHeight, Magick::OverCompositeOp);
 
 					image = img;
 				}
 
-				if (scrollRight || scrollLeft) {
+				if (scrollHorizontal) {
 					Magick::Image img(Magick::Geometry(imageWidth + 2 * matrixWidth, imageHeight), "black");
 					img.composite(image, matrixWidth, 0, Magick::OverCompositeOp);
 
