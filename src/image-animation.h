@@ -175,13 +175,13 @@ public:
 				int offsetX  = 0, offsetY = 0;
 
 				if (scrollDown)
-					dy = 1;
+					offsetY = imageHeight, dy = -1;
 				if (scrollUp)
-					dy = -1;
-				if (scrollRight)
-					dx = -1;
+					offsetY = 0, dy = 1;
 				if (scrollLeft)
-					dx = 1;
+					offsetX = 0, dx = 1;
+				if (scrollRight)
+					offsetX = imageWidth, dx = -1;
 
 				int count = scrollHorizontal ? imageWidth - matrixWidth : imageHeight - matrixHeight;
 
