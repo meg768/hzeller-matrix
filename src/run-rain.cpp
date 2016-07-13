@@ -166,7 +166,7 @@ NAN_METHOD(Addon::runRain)
 		options = v8::Local<v8::Value>::Cast(info[0]);
 
 	if (argc > 1 && info[1]->IsFunction())
-		callback = v8::Local<v8::Value>::Cast(info[0]);
+		callback = v8::Local<v8::Value>::Cast(info[1]);
 
 	MatrixAnimation *animation = new MatrixAnimation(_matrix);
 
