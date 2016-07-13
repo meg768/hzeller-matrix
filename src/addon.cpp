@@ -59,14 +59,7 @@ void Addon::animationCompleted(uv_work_t *request, int status)
 	if (context->callback != NULL) {
 		v8::TryCatch try_catch;
 
-		v8::Local<v8::String> text = Nan::New<v8::String>("width").ToLocalChecked();
-
-		v8::Local<v8::Value> argv[2];
-
-		argv[0] = text;
-		argv[1] = text;
-
-	    context->callback->Call(2, argv);
+	    context->callback->Call(0, 0);
 	}
 
     delete context->callback;
