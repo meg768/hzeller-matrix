@@ -154,37 +154,36 @@ public:
 			}
 			else if (scrollVertical || scrollHorizontal) {
 
-				if (scrollVertical) {
+				if (scrollUp || scrollDown) {
 					Magick::Image img(Magick::Geometry(imageWidth, imageHeight + 2 * matrixHeight), "black");
 					img.composite(image, 0, matrixHeight, Magick::OverCompositeOp);
 
 					image = img;
 				}
 
-				if (scrollHorizontal) {
+				if (scrollRight || scrollLeft) {
 					Magick::Image img(Magick::Geometry(imageWidth + 2 * matrixWidth, imageHeight), "black");
 					img.composite(image, matrixWidth, 0, Magick::OverCompositeOp);
 
 					image = img;
 				}
 
+				imageWidth   = image.columns();
+				imageHeight  = image.rows();
+
 				int dx = 0, dy = 0;
+				int offsetX  = 0, offsetY = 0;
 
 				if (scrollDown)
 					dy = 1;
 				if (scrollUp)
 					dy = -1;
 				if (scrollRight)
-					dx = 1;
-				if (scrollLeft)
 					dx = -1;
+				if (scrollLeft)
+					dx = 1;
 
-				imageWidth   = image.columns();
-				imageHeight  = image.rows();
-
-				int offsetX  = 0;
-				int offsetY  = 0;
-				int count    = scrollVertical ? imageHeight : imageWidth;
+				int count = scrollHorizontal ? imageWidth - matrixWidth : imageHeight - matrixHeight;
 
 				for (int step = 0; !done() && step < count; step++) {
 					matrix->clear();
