@@ -6,11 +6,11 @@
 NAN_METHOD(Addon::runText)
 {
 	Nan::HandleScope scope;
-	
+
 	if (_matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
-	
+
 	int argc = info.Length();
 
 	v8::Local<v8::Value> text      = Nan::Undefined();
@@ -19,16 +19,16 @@ NAN_METHOD(Addon::runText)
 
 	if (argc > 0 && !info[0]->IsUndefined())
 		text = v8::Local<v8::String>::Cast(info[0]);
-	
+
 	if (argc > 1 && info[1]->IsObject())
-		options = v8::Local<v8::Value>::Cast(info[1]); 	 	
-	
-	if (argc > 2 && !info[2]->IsFunction())
+		options = v8::Local<v8::Value>::Cast(info[1]);
+
+	if (argc > 2 && info[2]->IsFunction())
 		callback = v8::Local<v8::Value>::Cast(info[2]);
 
-	
+
 	TextAnimation *animation = new TextAnimation(_matrix);
-	
+
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
 	v8::Local<v8::Value> iterations = Nan::Undefined();
@@ -70,6 +70,5 @@ NAN_METHOD(Addon::runText)
 	runAnimation(animation, callback);
 
 	info.GetReturnValue().Set(Nan::Undefined());
-	
-}
 
+}

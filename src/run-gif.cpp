@@ -5,11 +5,11 @@
 NAN_METHOD(Addon::runGif)
 {
 	Nan::HandleScope scope;
-	
+
 	if (_matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
-	
+
 	int argc = info.Length();
 
 	v8::Local<v8::Value> fileName  = Nan::Undefined();
@@ -18,14 +18,14 @@ NAN_METHOD(Addon::runGif)
 
 	if (argc > 0 && !info[0]->IsUndefined())
 		fileName = v8::Local<v8::String>::Cast(info[0]);
-	
+
 	if (argc > 1 && info[1]->IsObject())
-		options = v8::Local<v8::Value>::Cast(info[1]); 	 	
-	
-	if (argc > 2 && !info[2]->IsFunction())
+		options = v8::Local<v8::Value>::Cast(info[1]);
+
+	if (argc > 2 && info[2]->IsFunction())
 		callback = v8::Local<v8::Value>::Cast(info[2]);
 
-	
+
 	GifAnimation *animation = new GifAnimation(_matrix);
 
 	v8::Local<v8::Value> duration   = Nan::Undefined();
@@ -47,18 +47,17 @@ NAN_METHOD(Addon::runGif)
 	}
 
 	if (!iterations->IsUndefined()) {
-		animation->iterations(iterations->Int32Value());		
+		animation->iterations(iterations->Int32Value());
 	}
 
 	if (!delay->IsUndefined()) {
 		animation->delay(delay->NumberValue());
-		
+
 	}
 
 	runAnimation(animation, callback);
 
 
 	info.GetReturnValue().Set(Nan::Undefined());
-	
-}
 
+}

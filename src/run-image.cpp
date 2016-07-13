@@ -7,11 +7,11 @@
 NAN_METHOD(Addon::runImage)
 {
 	Nan::HandleScope scope;
-	
+
 	if (_matrix == NULL) {
         return Nan::ThrowError("Matrix is not configured.");
 	}
-	
+
 	int argc = info.Length();
 
 	v8::Local<v8::Value> fileName  = Nan::Undefined();
@@ -20,20 +20,20 @@ NAN_METHOD(Addon::runImage)
 
 	if (argc > 0 && !info[0]->IsUndefined())
 		fileName = v8::Local<v8::String>::Cast(info[0]);
-	
+
 	if (argc > 1 && info[1]->IsObject())
-		options = v8::Local<v8::Value>::Cast(info[1]); 	 	
-	
-	if (argc > 2 && !info[2]->IsFunction())
+		options = v8::Local<v8::Value>::Cast(info[1]);
+
+	if (argc > 2 && info[2]->IsFunction())
 		callback = v8::Local<v8::Value>::Cast(info[2]);
 
-	
+
 	ImageAnimation *animation = new ImageAnimation(_matrix);
-	
+
 	animation->delay(18.0);
 	animation->scroll("auto");
 	animation->duration(10);
-		
+
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
 	v8::Local<v8::Value> scroll     = Nan::Undefined();
@@ -65,6 +65,5 @@ NAN_METHOD(Addon::runImage)
 	runAnimation(animation, callback);
 
 	info.GetReturnValue().Set(Nan::Undefined());
-	
-}
 
+}
