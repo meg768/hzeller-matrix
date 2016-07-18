@@ -2,10 +2,10 @@ var path   = require("path");
 var matrix = require(path.join(__dirname, "build", "Release", "hzeller-matrix.node"));
 
 var Matrix = module.exports = function(config) {
-	
-	
+
+
 	this.display = {};
-	
+
 	this.display.drawPixel = function () {
 		return matrix.drawPixel.apply(this, arguments);
 	};
@@ -17,7 +17,7 @@ var Matrix = module.exports = function(config) {
 	this.display.update = function () {
 		return matrix.update.apply(this, arguments);
 	};
-	
+
 	this.runText = function() {
 		return matrix.runText.apply(this, arguments);
 	}
@@ -37,12 +37,18 @@ var Matrix = module.exports = function(config) {
 	this.runRain = function() {
 		return matrix.runRain.apply(this, arguments);
 	}
-	
+
+	this.isRunning = function() {
+		return matrix.isRunning.apply(this, arguments);
+	}
+
+
+
 	if (config != undefined) {
 		matrix.configure(config);
-		
-		this.width  = matrix.width;		
-		this.height = matrix.height;		
+
+		this.width  = matrix.width;
+		this.height = matrix.height;
 	}
-	
+
 }
