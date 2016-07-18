@@ -62,7 +62,10 @@ void Addon::animationCompleted(uv_work_t *request, int status)
 	    context->callback->Call(0, 0);
 	}
 
-    delete context->callback;
+	if (context->animation == _currentAnimation)
+		_currentAnimation = NULL;
+
+	delete context->callback;
     delete context->animation;
     delete context;
 
