@@ -96,6 +96,10 @@ The *options* argument may have the following values.
 - **duration** - Run the animation for **duration** seconds. -1 == inifinity.
 - **delay** - Animation each animation frame for **delay** milliseconds.
 
+### matrix.isRunning()
+
+Returns true/false if an animation is running or not.
+
 ## Properties
 
 ### matrix.width

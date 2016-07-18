@@ -71,6 +71,11 @@ void Addon::animationCompleted(uv_work_t *request, int status)
 
 }
 
+NAN_METHOD(Addon::isRunning)
+{
+	info.GetReturnValue().Set(_currentAnimation != NULL ? true : false);
+}
+
 NAN_METHOD(Addon::update)
 {
 
@@ -218,43 +223,22 @@ NAN_METHOD(Addon::drawPixel) {
 };
 
 
-NAN_GETTER(Addon::getWidth)
-{
-	if (_matrix == NULL) {
-        return Nan::ThrowError("Matrix is not configured.");
-	}
-
-	info.GetReturnValue().Set(_matrix->width());
-
-
-}
-
-NAN_GETTER(Addon::getHeight)
-{
-	if (_matrix == NULL) {
-        return Nan::ThrowError("Matrix is not configured.");
-	}
-
-	info.GetReturnValue().Set(_matrix->height());
-}
-
 
 
 NAN_MODULE_INIT(initAddon)
 {
 	Nan::SetMethod(target, "configure",  Addon::configure);
+	Nan::SetMethod(target, "isRunning",  Addon::isRunning);
 	Nan::SetMethod(target, "runText",    Addon::runText);
 	Nan::SetMethod(target, "runGif",     Addon::runGif);
 	Nan::SetMethod(target, "runPerlin",  Addon::runPerlin);
 	Nan::SetMethod(target, "runRain",    Addon::runRain);
 	Nan::SetMethod(target, "runImage",   Addon::runImage);
 
+	// Unsupported
 	Nan::SetMethod(target, "drawImage",  Addon::drawImage);
 	Nan::SetMethod(target, "drawPixel",  Addon::drawPixel);
 	Nan::SetMethod(target, "update",     Addon::update);
-
-//	Nan::SetAccessor(target, Nan::New("width").ToLocalChecked(),  Addon::getWidth);
-//	Nan::SetAccessor(target, Nan::New("height").ToLocalChecked(), Addon::getHeight);
 }
 
 
