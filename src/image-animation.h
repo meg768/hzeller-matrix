@@ -128,7 +128,7 @@ public:
 				imageWidth   = image.columns();
 				imageHeight  = image.rows();
 
-				for (int loop = 0; loop < _iterations; loop++) {
+				for (int loop = 0; loop < _iterations || _iterations < 0; loop++) {
 
 					int dx = 0, dy = 0;
 					int offsetX  = 0, offsetY = 0;
