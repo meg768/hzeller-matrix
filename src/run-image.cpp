@@ -32,7 +32,7 @@ NAN_METHOD(Addon::runImage)
 
 	animation->delay(18.0);
 	animation->scroll("auto");
-	animation->duration(10);
+	animation->duration(60);
 
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
