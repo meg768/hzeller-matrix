@@ -46,7 +46,7 @@ The **options** argument may have the following values.
 - **fontSize** - Change the font size.
 - **duration** - Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
 - **delay** - Animation delay during display loop. Decimal value >= 0.
-- **iterations** - Number of iterations to display the text.
+- **iterations** - Number of iterations to display the text.  -1 == infinity.
 
 Example
 
@@ -64,7 +64,7 @@ The **options** argument may have the following values.
 - **pause** - Specifies the time, in seconds, to pause after scroll has finished.
 - **duration** - Number of seconds to animate. Default is 60 seconds.
 - **delay** - Animation delay during display loop.
-- **iterations** - Number of iterations to display the image.
+- **iterations** - Number of iterations to display the image. -1 == infinity.
 
 ### matrix.runAmination(gifFile, options, callback)
 
