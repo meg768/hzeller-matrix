@@ -1,6 +1,6 @@
 {
   "name": "hzeller-matrix",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "Raspberry Pi RGB Matrix addon for Node",
   "main": "hzeller-matrix.js",
   "scripts": {

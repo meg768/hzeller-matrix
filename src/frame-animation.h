@@ -18,7 +18,6 @@ public:
 	}
 
 	void iterations(int value) {
-		printf("iterations %d\n", value);
 		_iterations = value;
 	}
 
