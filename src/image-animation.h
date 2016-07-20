@@ -8,6 +8,11 @@ public:
 	ImageAnimation(Matrix *matrix) : Animation(matrix) {
 		_scroll = "auto";
 		_pause = 0;
+		_iterations = 1;
+	}
+
+	void iterations(int value) {
+		_iterations = value;
 	}
 
 	void image(Magick::Image &value) {
@@ -103,64 +108,6 @@ public:
 			int scrollDown       = _scroll == "down";
 			int scrollVertical   = scrollUp || scrollDown;
 			int scrollHorizontal = scrollLeft || scrollRight;
-/*
-
-			if (_scroll == "horizontal") {
-
-				if (true) {
-					Magick::Image img(Magick::Geometry(imageWidth + 2 * matrixWidth, imageHeight), "black");
-					img.composite(image, matrixWidth, 0, Magick::OverCompositeOp);
-
-					image = img;
-				}
-
-				imageWidth   = image.columns();
-				imageHeight  = image.rows();
-
-				for (int offsetX = 0; !done() && offsetX < imageWidth - matrixWidth; offsetX++) {
-					matrix->clear();
-
-					matrix->drawImage(image, 0, 0, offsetX, 0);
-					matrix->refresh();
-
-					sleep();
-
-					if (_pause > 0) {
-						if (duration > 0 && offsetX == (imageWidth - matrixWidth) / 2)
-							usleep(1000.0 * 1000.0 * _pause);
-					}
-
-				}
-			}
-
-			if (_scroll == "vertical") {
-
-				if (true) {
-					Magick::Image img(Magick::Geometry(imageWidth, imageHeight + 2 * matrixHeight), "black");
-					img.composite(image, 0, matrixHeight, Magick::OverCompositeOp);
-
-					image = img;
-				}
-
-				imageWidth   = image.columns();
-				imageHeight  = image.rows();
-
-				for (int offsetY = 0; !done() && offsetY < imageHeight; offsetY++) {
-					matrix->clear();
-
-					matrix->drawImage(image, 0, 0, 0, offsetY);
-					matrix->refresh();
-
-					sleep();
-
-					if (_pause > 0) {
-						if (duration > 0 && offsetY == (imageHeight - matrixHeight) / 2)
-							usleep(1000.0 * 1000.0 * _pause);
-					}
-
-				}
-			}
-*/
 
 			if (scrollVertical || scrollHorizontal) {
 
@@ -181,38 +128,42 @@ public:
 				imageWidth   = image.columns();
 				imageHeight  = image.rows();
 
-				int dx = 0, dy = 0;
-				int offsetX  = 0, offsetY = 0;
+				for (int loop = 0; loop < _iterations; loop++) {
 
-				if (scrollUp)
-					offsetY = 0, dy = 1;
-				if (scrollLeft)
-					offsetX = 0, dx = 1;
-				if (scrollDown)
-					offsetY = imageHeight - matrixHeight, dy = -1;
-				if (scrollRight)
-					offsetX = imageWidth - matrixWidth, dx = -1;
+					int dx = 0, dy = 0;
+					int offsetX  = 0, offsetY = 0;
 
-				int count = scrollHorizontal ? imageWidth - matrixWidth : imageHeight - matrixHeight;
+					if (scrollUp)
+						offsetY = 0, dy = 1;
+					if (scrollLeft)
+						offsetX = 0, dx = 1;
+					if (scrollDown)
+						offsetY = imageHeight - matrixHeight, dy = -1;
+					if (scrollRight)
+						offsetX = imageWidth - matrixWidth, dx = -1;
 
-				for (int step = 0; !done() && step < count; step++) {
-					matrix->clear();
+					int count = scrollHorizontal ? imageWidth - matrixWidth : imageHeight - matrixHeight;
 
-					matrix->drawImage(image, 0, 0, offsetX, offsetY);
-					matrix->refresh();
+					for (int step = 0; !done() && step < count; step++) {
+						matrix->clear();
 
-					offsetX += dx;
-					offsetY += dy;
+						matrix->drawImage(image, 0, 0, offsetX, offsetY);
+						matrix->refresh();
 
-					sleep();
+						offsetX += dx;
+						offsetY += dy;
 
-					if (_pause > 0 && scrollVertical) {
-						if (duration > 0 && offsetY == (imageHeight - matrixHeight) / 2)
-							usleep(1000.0 * 1000.0 * _pause);
-					}
-					if (_pause > 0 && scrollHorizontal) {
-						if (duration > 0 && offsetX == (imageWidth - matrixWidth) / 2)
-							usleep(1000.0 * 1000.0 * _pause);
+						sleep();
+
+						if (_pause > 0 && scrollVertical) {
+							if (duration > 0 && offsetY == (imageHeight - matrixHeight) / 2)
+								usleep(1000.0 * 1000.0 * _pause);
+						}
+						if (_pause > 0 && scrollHorizontal) {
+							if (duration > 0 && offsetX == (imageWidth - matrixWidth) / 2)
+								usleep(1000.0 * 1000.0 * _pause);
+						}
+
 					}
 
 				}
@@ -247,4 +198,5 @@ protected:
 	Magick::Image _image;
 	std::string _scroll;
 	double _pause;
+	int _iterations;
 };
