@@ -132,7 +132,7 @@ public:
 			_worms[i].draw(_matrix);
 			_worms[i].idle();
 
-			//sleep();
+			sleep();
 		}
 
 		_matrix->refresh();
