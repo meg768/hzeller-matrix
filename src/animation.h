@@ -14,7 +14,7 @@ public:
 		_matrix    = matrix;
 		_duration  = duration;
 		_startTime = time(NULL);
-		_delay     = 50;
+		_delay     = 0;
 		_stopped   = false;
 	}
 
@@ -39,7 +39,7 @@ public:
 
 	inline void sleep() {
 		if (_delay > 0)
-			::usleep(_delay);
+			::usleep(1000 * _delay);
 	}
 
 	inline Matrix *matrix() {
