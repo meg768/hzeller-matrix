@@ -11,7 +11,7 @@ class FrameAnimation : public Animation {
 public:
 
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
-		_iterations     = -1;
+		_iterations     = 1;
 		_animationDelay = 1;
 		_delay          = 0;
 
@@ -61,8 +61,8 @@ public:
 				// Get the animation delay factor
 				double animationDelay = double(image.animationDelay());
 
-				if (animationDelay <= 0)
-					animationDelay = _animationDelay;
+				//if (animationDelay <= 0)
+				//	animationDelay = _animationDelay;
 
 				imageIndex++;
 				matrix->refresh();
