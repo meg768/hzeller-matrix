@@ -100,7 +100,6 @@ class MatrixAnimation : public Animation {
 public:
 	MatrixAnimation(Matrix *matrix) : Animation(matrix) {
 		_hue      = -1;
-		_duration = 60;
 	}
 
 	~MatrixAnimation() {
@@ -132,10 +131,10 @@ public:
 			_worms[i].draw(_matrix);
 			_worms[i].idle();
 
-			sleep();
 		}
 
 		_matrix->refresh();
+		sleep();
 
 	}
 
