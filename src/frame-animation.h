@@ -12,17 +12,15 @@ public:
 
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
 		_iterations     = 1;
-		_animationDelay = 1;
-		_delay          = 0;
-
+		_speed          = 1;
 	}
 
 	void iterations(int value) {
 		_iterations = value;
 	}
 
-	void animationDelay(double value) {
-		_animationDelay = value;
+	void speed(double value) {
+		_speed = value;
 	}
 
 	void frames(std::vector<Magick::Image> &value) {
@@ -31,7 +29,6 @@ public:
 
 
 	virtual int run() {
-
 
 		try {
 			Matrix *matrix = Animation::matrix();
@@ -61,15 +58,16 @@ public:
 				// Get the animation delay factor
 				double animationDelay = double(image.animationDelay());
 
-				//if (animationDelay <= 0)
-				//	animationDelay = _animationDelay;
+
+				if (animationDelay <= 0)
+					animationDelay = _delay * 1000;
 
 				imageIndex++;
 				matrix->refresh();
 
 				// Wait for next frame to display
 				// (Seems like we have to reduce the delay by some factor)
-				usleep(int(animationDelay * 1000.0) + delay());
+				usleep(int(animationDelay * _speed));
 			}
 
 			matrix->clear();
