@@ -33,13 +33,9 @@ You may want to change the time zone as well.
 	$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 	$ sudo apt-get install -y nodejs
 
-## Install GraphicsMagick
+## Install GraphicsMagick and more
 
-	$ sudo aptitude update && sudo aptitude install libgraphicsmagick++1-dev
-
-## Install git and some other stuff
-
-	$ sudo apt-get install git libwebp-dev
+	$ sudo aptitude update && sudo aptitude install libgraphicsmagick++1-dev git libwebp-dev
 
 ## Download hzeller-matrix
 
