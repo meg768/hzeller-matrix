@@ -180,13 +180,16 @@ NAN_METHOD(Addon::runRain)
 		hue        = object->Get(Nan::New<v8::String>("hue").ToLocalChecked());
 	}
 
-	if (!duration->IsUndefined())
-		animation->duration(duration->Int32Value());
+	if (!duration->IsUndefined()) {
+		int value = duration->Int32Value();
+		printf("duration: %d\n", value);
+		animation->duration(value);
+	}
 
 	if (!hue->IsUndefined()) {
-		int hue = hue->Int32Value();
-		printf("hue: %d\n", hue);
-		animation->hue(hue);
+		int value = hue->Int32Value();
+		printf("hue: %d\n", value);
+		animation->hue(value);
 
 	}
 
