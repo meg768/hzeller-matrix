@@ -149,7 +149,7 @@ You may want to change the time zone as well.
 	$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 	$ sudo apt-get install -y nodejs
 
-### Install GraphicsMagick and more
+### Install GraphicsMagick++
 
 	$ sudo aptitude update && sudo aptitude install libgraphicsmagick++1-dev
 
