@@ -35,7 +35,10 @@ You may want to change the time zone as well.
 
 ## Install GraphicsMagick and more
 
-	$ sudo aptitude update && sudo aptitude install libgraphicsmagick++1-dev git libwebp-dev
+	$ sudo aptitude update && sudo aptitude install libgraphicsmagick++1-dev
+
+## Install some more stuff
+	$ sudo apt-get install git libwebp-dev
 
 ## Download hzeller-matrix
 
