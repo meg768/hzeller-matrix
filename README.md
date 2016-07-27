@@ -45,7 +45,7 @@ The **options** argument may have the following values.
 - **fontName** - Use the specified TrueType font.
 - **fontSize** - Change the font size.
 - **duration** - Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
-- **delay** - Animation delay during display loop. Decimal value >= 0.
+- **delay** - Animation delay during display loop in milliseconds.
 - **iterations** - Number of iterations to display the text.  -1 == infinity.
 
 Example
@@ -63,7 +63,7 @@ The **options** argument may have the following values.
 - **scroll** - Specifies the direction to scroll the image. Valid values are 'left', 'right', 'up', 'down' or 'auto'. Default is 'auto'.
 - **pause** - Specifies the time, in seconds, to pause after scroll has finished.
 - **duration** - Number of seconds to animate. Default is 60 seconds.
-- **delay** - Animation delay during display loop.
+- **delay** - Animation delay during display loop in milliseconds.
 - **iterations** - Number of iterations to display the image. -1 == infinity.
 
 ### matrix.runAmination(gifFile, options, callback)
@@ -73,7 +73,7 @@ The **callback** argument is called when the animation completes.
 The **options** argument may have the following values.
 
 - **duration** - Number of seconds to animate. Default is 60 seconds.
-- **delay** - Animation delay during display loop.
+- **delay** - Animation delay during display loop in milliseconds.
 - **iterations** - Number of iterations to animate. Default is -1, that is infinite.
 
 ### matrix.runRain(options, callback)
@@ -84,7 +84,7 @@ The **options** argument may have the following values.
 
 - **hue** - Specifies the hue of the rain. If not specified, it will use the time of day to specify the hue.
 - **duration** - Run the animation for **duration** seconds. -1 == inifinity.
-- **delay** - Animation each animation frame for **delay** milliseconds.
+- **delay** - Animation delay during display loop in milliseconds.
 
 
 ### matrix.runPerlin(options, callback)
@@ -95,7 +95,7 @@ The *options* argument may have the following values.
 
 - **mode** - Valid modes are 1, 2 or 3.
 - **duration** - Run the animation for **duration** seconds. -1 == inifinity.
-- **delay** - Animation each animation frame for **delay** milliseconds.
+- **delay** - Animation delay during display loop in milliseconds.
 
 ### matrix.isRunning()
 

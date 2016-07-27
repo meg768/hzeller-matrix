@@ -12,8 +12,8 @@ public:
 
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
 		_iterations     = -1;
-		_duration       = 60;
 		_animationDelay = 1;
+		_delay          = 0;
 
 	}
 
@@ -69,7 +69,7 @@ public:
 
 				// Wait for next frame to display
 				// (Seems like we have to reduce the delay by some factor)
-				usleep(int(animationDelay * 1000.0 * delay()));
+				usleep(int(animationDelay * 1000.0) + delay());
 			}
 
 			matrix->clear();

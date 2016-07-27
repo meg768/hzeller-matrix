@@ -51,7 +51,7 @@ NAN_METHOD(Addon::runGif)
 	}
 
 	if (!delay->IsUndefined()) {
-		animation->delay(delay->NumberValue());
+		animation->delay(delay->Int32Value());
 
 	}
 

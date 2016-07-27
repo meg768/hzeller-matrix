@@ -101,7 +101,6 @@ public:
 	MatrixAnimation(Matrix *matrix) : Animation(matrix) {
 		_hue      = -1;
 		_duration = 60;
-		_delay    = 0.05;
 	}
 
 	~MatrixAnimation() {
@@ -188,7 +187,7 @@ NAN_METHOD(Addon::runRain)
 		animation->hue(duration->Int32Value());
 
 	if (!delay->IsUndefined())
-		animation->delay(delay->NumberValue());
+		animation->delay(delay->Int32Value());
 
 	runAnimation(animation, callback);
 

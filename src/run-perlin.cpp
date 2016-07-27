@@ -469,7 +469,7 @@ class PerlinAnimation : public Animation {
 
 public:
 	PerlinAnimation(Matrix *matrix) : Animation(matrix) {
-		_delay    = 10.0;
+		_delay    = 10;
 		_duration = 60;
 		_mode     = 1;
 		_pattern  = 0;
@@ -549,7 +549,7 @@ NAN_METHOD(Addon::runPerlin)
 		animation->duration(duration->Int32Value());
 
 	if (!delay->IsUndefined())
-		animation->delay(delay->NumberValue());
+		animation->delay(delay->Int32Value());
 
 	if (!mode->IsUndefined())
 		animation->mode(mode->Int32Value());
