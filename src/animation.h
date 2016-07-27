@@ -39,7 +39,7 @@ public:
 
 	inline void sleep() {
 		if (_delay > 0)
-			::sleep(_delay);
+			::usleep(_delay);
 	}
 
 	inline Matrix *matrix() {
