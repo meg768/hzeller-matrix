@@ -20,6 +20,7 @@ public:
 	}
 
 	void speed(double value) {
+		printf("speed is set to %f\n", value);
 		_speed = value;
 	}
 
@@ -58,16 +59,13 @@ public:
 				// Get the animation delay factor
 				double animationDelay = double(image.animationDelay());
 
-
-				if (animationDelay <= 0)
-					animationDelay = _delay * 1000;
+				if (animationDelay > 0)
+					_delay = (int)(animationDelay * 1000.0 * _speed);
 
 				imageIndex++;
 				matrix->refresh();
 
-				// Wait for next frame to display
-				// (Seems like we have to reduce the delay by some factor)
-				usleep(int(animationDelay * _speed));
+				sleep();
 			}
 
 			matrix->clear();
@@ -86,7 +84,7 @@ public:
 
 protected:
 	std::vector<Magick::Image> _frames;
-	double _animationDelay;
+	double _speed;
 	int _iterations;
 };
 

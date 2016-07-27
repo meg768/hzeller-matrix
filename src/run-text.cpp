@@ -31,6 +31,7 @@ NAN_METHOD(Addon::runText)
 
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
+	v8::Local<v8::Value> speed      = Nan::Undefined();
 	v8::Local<v8::Value> iterations = Nan::Undefined();
 	v8::Local<v8::Value> textColor  = Nan::Undefined();
 	v8::Local<v8::Value> fontSize   = Nan::Undefined();
@@ -40,6 +41,7 @@ NAN_METHOD(Addon::runText)
 		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
 		duration   = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
 		delay      = object->Get(Nan::New<v8::String>("delay").ToLocalChecked());
+		speed      = object->Get(Nan::New<v8::String>("speed").ToLocalChecked());
 		iterations = object->Get(Nan::New<v8::String>("iterations").ToLocalChecked());
 		textColor  = object->Get(Nan::New<v8::String>("textColor").ToLocalChecked());
 		fontSize   = object->Get(Nan::New<v8::String>("fontSize").ToLocalChecked());
@@ -66,6 +68,9 @@ NAN_METHOD(Addon::runText)
 
 	if (!delay->IsUndefined())
 		animation->delay(delay->Int32Value());
+
+	if (!speed->IsUndefined())
+		animation->speed(speed->NumberValue());
 
 	runAnimation(animation, callback);
 
