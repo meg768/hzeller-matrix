@@ -184,7 +184,7 @@ NAN_METHOD(Addon::runRain)
 		animation->duration(duration->Int32Value());
 
 	if (!hue->IsUndefined()) {
-		int hue = duration->Int32Value();
+		int hue = hue->Int32Value();
 		printf("hue: %d\n", hue);
 		animation->hue(hue);
 
