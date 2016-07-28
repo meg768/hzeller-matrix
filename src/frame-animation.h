@@ -61,6 +61,8 @@ public:
 				// Get the animation delay factor
 				int animationDelay = (int)image.animationDelay();
 
+				printf("animationdelay is set to %d\n", animationDelay);
+
 				if (animationDelay <= 0)
 					animationDelay = 0;
 
