@@ -172,7 +172,12 @@ Edit the configuration file.
 
 And add this at the end.
 
-	network = {
+	network={
     	ssid="my-network-name"
     	psk="my-password"
 	}
+
+Save and reboot. Connect again using the same ip-address as before and find out the
+wlan ip-address by running the following.
+
+	$ ifconfig
