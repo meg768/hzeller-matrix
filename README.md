@@ -5,7 +5,7 @@ Before you install this, please read this https://github.com/hzeller/rpi-rgb-led
 
 
 ## Installation
-	npm install hzeller-matrix --save
+	$ npm install hzeller-matrix --save
 
 Before you install, make sure you have GraphicsMagick installed on the Pi, and some other stuff.
 
