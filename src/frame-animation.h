@@ -31,8 +31,6 @@ public:
 
 	virtual int run() {
 
-		printf("speed is set to %.02f\n", _speed);
-		printf("delay is set to %d\n", _delay);
 		try {
 			Matrix *matrix = Animation::matrix();
 
@@ -60,8 +58,6 @@ public:
 
 				// Get the animation delay factor
 				int animationDelay = (int)image.animationDelay();
-
-				printf("animationdelay is set to %d\n", animationDelay);
 
 				if (animationDelay <= 0)
 					animationDelay = 0;
