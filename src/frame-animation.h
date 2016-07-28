@@ -21,7 +21,6 @@ public:
 	}
 
 	void speed(double value) {
-		printf("speed is set to %.02f\n", value);
 		_speed = value;
 	}
 
@@ -32,6 +31,8 @@ public:
 
 	virtual int run() {
 
+		printf("speed is set to %.02f\n", _speed);
+		printf("delay is set to %d\n", _delay);
 		try {
 			Matrix *matrix = Animation::matrix();
 
@@ -61,14 +62,16 @@ public:
 				int animationDelay = (int)image.animationDelay();
 
 				if (animationDelay <= 0)
-					animationDelay = _delay;
+					animationDelay = 0;
+
+				animationDelay += _delay;
 
 				imageIndex++;
 				matrix->refresh();
 
 				// Wait for next frame to display
 				// (Seems like we have to reduce the delay by some factor)
-				usleep(int((double)animationDelay * 1000.0 * _speed));
+				usleep(int(((double)animationDelay * 1000.0) / _speed));
 
 			}
 
