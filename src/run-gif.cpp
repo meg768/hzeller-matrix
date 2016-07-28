@@ -56,6 +56,10 @@ NAN_METHOD(Addon::runGif)
 		animation->delay(delay->Int32Value());
 	}
 
+	if (!speed->IsUndefined())
+		animation->speed(speed->NumberValue());
+
+
 	runAnimation(animation, callback);
 
 

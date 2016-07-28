@@ -13,6 +13,7 @@ public:
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
 		_iterations     = 1;
 		_speed          = 1;
+		_delay          = 18;
 	}
 
 	void iterations(int value) {
@@ -20,7 +21,7 @@ public:
 	}
 
 	void speed(double value) {
-		printf("speed is set to %f\n", value);
+		printf("speed is set to %.02f\n", value);
 		_speed = value;
 	}
 
@@ -57,15 +58,18 @@ public:
 				matrix->drawImage(image);
 
 				// Get the animation delay factor
-				double animationDelay = double(image.animationDelay());
+				int animationDelay = (int)image.animationDelay();
 
-				if (animationDelay > 0)
-					_delay = (int)((double)animationDelay * _speed);
+				if (animationDelay <= 0)
+					animationDelay = _delay;
 
 				imageIndex++;
 				matrix->refresh();
 
-				sleep();
+				// Wait for next frame to display
+				// (Seems like we have to reduce the delay by some factor)
+				usleep(int((double)animationDelay * 1000.0 * _speed));
+
 			}
 
 			matrix->clear();
