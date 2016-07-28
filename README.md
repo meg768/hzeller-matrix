@@ -163,3 +163,16 @@ You may want to change the time zone as well.
 ### Build it
 	$ cd hzeller-matrix
 	$ npm install
+
+### Configure Wi-Fi
+
+Edit the configuration file.
+
+	$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+And add this at the end.
+
+	network = {
+    	ssid="my-network-name"
+    	psk="my-password"
+	}
