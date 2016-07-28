@@ -39,6 +39,7 @@ NAN_METHOD(Addon::runImage)
 	v8::Local<v8::Value> scroll     = Nan::Undefined();
 	v8::Local<v8::Value> pause      = Nan::Undefined();
 	v8::Local<v8::Value> iterations = Nan::Undefined();
+	v8::Local<v8::Value> speed      = Nan::Undefined();
 
 	if (!options->IsUndefined()) {
 		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
@@ -47,6 +48,7 @@ NAN_METHOD(Addon::runImage)
 		scroll     = object->Get(Nan::New<v8::String>("scroll").ToLocalChecked());
 		pause      = object->Get(Nan::New<v8::String>("pause").ToLocalChecked());
 		iterations = object->Get(Nan::New<v8::String>("iterations").ToLocalChecked());
+		speed      = object->Get(Nan::New<v8::String>("speed").ToLocalChecked());
 
 	}
 
@@ -68,6 +70,8 @@ NAN_METHOD(Addon::runImage)
 	if (!iterations->IsUndefined())
 		animation->iterations(iterations->Int32Value());
 
+	if (!speed->IsUndefined())
+		animation->speed(speed->NumberValue());
 
 	runAnimation(animation, callback);
 

@@ -16,6 +16,7 @@ public:
 		_startTime = time(NULL);
 		_delay     = 0;
 		_stopped   = false;
+		_speed     = 1.0;
 	}
 
 	virtual ~Animation() {
@@ -37,9 +38,17 @@ public:
 		return _delay;
 	}
 
+	inline void speed(double value) {
+		_speed = value;
+	}
+
+	inline double speed() {
+		return _speed;
+	}
+
 	inline void sleep() {
 		if (_delay > 0)
-			::usleep(1000 * _delay);
+			::usleep(int(1000.0 * _delay / _speed));
 	}
 
 	inline Matrix *matrix() {
@@ -104,6 +113,7 @@ protected:
 	int _duration;
 	int _stopped;
 	int _delay;
+	double _speed;
 };
 
 

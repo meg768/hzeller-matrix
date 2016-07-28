@@ -45,8 +45,9 @@ The **options** argument may have the following values.
 - **fontName** - Use the specified TrueType font.
 - **fontSize** - Change the font size.
 - **duration** - Run  no longer this number of seconds. Default is -1, that is until the text is fully displayed.
-- **delay** - Animation delay during display loop in milliseconds.
-- **iterations** - Number of iterations to display the text.  -1 == infinity.
+- **delay** - Scroll delay in milliseconds.
+- **speed** - Speed factor. Default 1.0. Lesser value slows down the animation. Greater value speeds it up.
+- **iterations** - Number of iterations to display the text. Default is 1. -1 == infinity.
 
 Example
 
@@ -73,7 +74,8 @@ The **callback** argument is called when the animation completes.
 The **options** argument may have the following values.
 
 - **duration** - Number of seconds to animate. Default is 60 seconds.
-- **delay** - Animation delay during display loop in milliseconds.
+- **delay** - Animation frame delay i milliseconds if the value is missing in the GIF.
+- **speed** - Speed factor. Default 1.0. Lesser value slows down the animation. Greater value speeds it up.
 - **iterations** - Number of iterations to animate. Default is -1, that is infinite.
 
 ### matrix.runRain(options, callback)

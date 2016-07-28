@@ -12,7 +12,6 @@ public:
 
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
 		_iterations     = 1;
-		_speed          = 1.0;
 		_delay          = 5;
 	}
 
@@ -20,9 +19,6 @@ public:
 		_iterations = value;
 	}
 
-	void speed(double value) {
-		_speed = value;
-	}
 
 	void frames(std::vector<Magick::Image> &value) {
 		_frames = value;
@@ -87,7 +83,6 @@ public:
 
 protected:
 	std::vector<Magick::Image> _frames;
-	double _speed;
 	int _iterations;
 };
 

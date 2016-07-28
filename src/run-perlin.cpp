@@ -536,12 +536,14 @@ NAN_METHOD(Addon::runPerlin)
 
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
+	v8::Local<v8::Value> speed      = Nan::Undefined();
 	v8::Local<v8::Value> mode       = Nan::Undefined();
 
 	if (!options->IsUndefined()) {
 		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
 		duration   = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
 		delay      = object->Get(Nan::New<v8::String>("delay").ToLocalChecked());
+		speed      = object->Get(Nan::New<v8::String>("speed").ToLocalChecked());
 		mode       = object->Get(Nan::New<v8::String>("mode").ToLocalChecked());
 	}
 
@@ -553,6 +555,10 @@ NAN_METHOD(Addon::runPerlin)
 
 	if (!mode->IsUndefined())
 		animation->mode(mode->Int32Value());
+
+	if (!speed->IsUndefined())
+		animation->speed(speed->NumberValue());
+
 
 	runAnimation(animation, callback);
 

@@ -172,11 +172,13 @@ NAN_METHOD(Addon::runRain)
 	v8::Local<v8::Value> hue        = Nan::Undefined();
 	v8::Local<v8::Value> duration   = Nan::Undefined();
 	v8::Local<v8::Value> delay      = Nan::Undefined();
+	v8::Local<v8::Value> speed      = Nan::Undefined();
 
 	if (!options->IsUndefined()) {
 		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
 		duration   = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
 		delay      = object->Get(Nan::New<v8::String>("delay").ToLocalChecked());
+		speed      = object->Get(Nan::New<v8::String>("speed").ToLocalChecked());
 		hue        = object->Get(Nan::New<v8::String>("hue").ToLocalChecked());
 	}
 
@@ -193,6 +195,9 @@ NAN_METHOD(Addon::runRain)
 
 	if (!delay->IsUndefined())
 		animation->delay(delay->Int32Value());
+
+	if (!speed->IsUndefined())
+		animation->speed(speed->NumberValue());
 
 	runAnimation(animation, callback);
 
