@@ -12,8 +12,8 @@ public:
 
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
 		_iterations     = 1;
-		_speed          = 0.25;
-		_delay          = 10;
+		_speed          = 1.0;
+		_delay          = 5;
 	}
 
 	void iterations(int value) {
@@ -56,7 +56,7 @@ public:
 				// Draw the image
 				matrix->drawImage(image);
 
-				// Get the animation delay factor
+				// Get the animation delay
 				int animationDelay = (int)image.animationDelay();
 
 				if (animationDelay <= 0)
@@ -67,7 +67,7 @@ public:
 
 				// Wait for next frame to display
 				// (Seems like we have to reduce the delay by some factor)
-				usleep(int(((double)animationDelay * 1000.0) / _speed));
+				usleep(int(((double)animationDelay * 1000.0) / (0.105 * _speed)));
 
 			}
 
