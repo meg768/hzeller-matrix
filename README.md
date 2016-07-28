@@ -7,10 +7,10 @@ Before you install this, please read this https://github.com/hzeller/rpi-rgb-led
 ## Installation
 	npm install hzeller-matrix --save
 
-Before you install, make sure you have GraphicsMagick installed on the Pi.
+Before you install, make sure you have GraphicsMagick installed on the Pi, and some other stuff.
 
-	$ sudo aptitude update
-	$ sudo aptitude install libgraphicsmagick++1-dev
+	$ sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get install libwebp-dev
+	$ sudo aptitude update && sudo aptitude install libgraphicsmagick++1-dev
 
 ## Usage
 
