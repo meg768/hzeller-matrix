@@ -12,8 +12,8 @@ public:
 
 	FrameAnimation(Matrix *matrix) : Animation(matrix) {
 		_iterations     = 1;
-		_speed          = 1;
-		_delay          = 18;
+		_speed          = 0.25;
+		_delay          = 10;
 	}
 
 	void iterations(int value) {
@@ -60,9 +60,7 @@ public:
 				int animationDelay = (int)image.animationDelay();
 
 				if (animationDelay <= 0)
-					animationDelay = 0;
-
-				animationDelay += _delay;
+					animationDelay = _delay;
 
 				imageIndex++;
 				matrix->refresh();
