@@ -60,7 +60,7 @@ public:
 				double animationDelay = double(image.animationDelay());
 
 				if (animationDelay > 0)
-					_delay = (int)(animationDelay * _speed);
+					_delay = (int)((double)animationDelay * _speed);
 
 				imageIndex++;
 				matrix->refresh();

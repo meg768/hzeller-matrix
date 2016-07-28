@@ -10,7 +10,7 @@ public:
 		_fontName       = "";
 		_fontSize       = 18;
 		_iterations     = 1;
-		_delay          = 0;
+		_delay          = 18;
 	}
 
 	void fontName(const char *value) {

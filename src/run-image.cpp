@@ -30,7 +30,7 @@ NAN_METHOD(Addon::runImage)
 
 	ImageAnimation *animation = new ImageAnimation(_matrix);
 
-	animation->delay(18.0);
+	animation->delay(18);
 	animation->scroll("auto");
 	animation->duration(60);
 
