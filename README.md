@@ -181,3 +181,6 @@ Save and reboot. Connect again using the same ip-address as before and find out 
 wlan ip-address by running the following.
 
 	$ ifconfig
+
+Now you can disconnect the network cable and log on to this new ip-address
+in the future.
