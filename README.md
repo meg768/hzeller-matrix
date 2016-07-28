@@ -66,6 +66,7 @@ The **options** argument may have the following values.
 - **duration** - Number of seconds to animate. Default is 60 seconds.
 - **delay** - Animation delay during display loop in milliseconds.
 - **iterations** - Number of iterations to display the image. -1 == infinity.
+- **speed** - Speed factor. Default 1.0. Lesser value slows down the animation. Greater value speeds it up.
 
 ### matrix.runAmination(gifFile, options, callback)
 
@@ -87,6 +88,7 @@ The **options** argument may have the following values.
 - **hue** - Specifies the hue of the rain. If not specified, it will use the time of day to specify the hue.
 - **duration** - Run the animation for **duration** seconds. -1 == inifinity.
 - **delay** - Animation delay during display loop in milliseconds.
+- **speed** - Speed factor. Default 1.0. Lesser value slows down the animation. Greater value speeds it up.
 
 
 ### matrix.runPerlin(options, callback)
@@ -98,6 +100,7 @@ The *options* argument may have the following values.
 - **mode** - Valid modes are 1, 2 or 3.
 - **duration** - Run the animation for **duration** seconds. -1 == inifinity.
 - **delay** - Animation delay during display loop in milliseconds.
+- **speed** - Speed factor. Default 1.0. Lesser value slows down the animation. Greater value speeds it up.
 
 ### matrix.isRunning()
 
@@ -175,7 +178,7 @@ Edit the configuration file.
 And add this at the end.
 
 	network={
-    	ssid="my-network-name"
+		ssid="my-network-name"
     	psk="my-password"
 	}
 
