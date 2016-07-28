@@ -1,4 +1,5 @@
 # Hzeller Matrix
+
 A module for generating animations on a Raspberry PI.
 Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix.
 
@@ -17,6 +18,12 @@ Before you install, make sure you have GraphicsMagick installed on the Pi.
 	var matrix = new Matrix({width:32, height:32});
 
 	matrix.runText('Hello World');
+
+## Note (2016-07-28)
+
+This has been working fine on a Raspberry Pi 2. But I have not been able to
+get a stable image/animation using a Raspberry Pi 3. It might be my long cables.
+Just a heads up.
 
 ## Constructor
 
