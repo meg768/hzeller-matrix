@@ -100,6 +100,7 @@ class MatrixAnimation : public Animation {
 public:
 	MatrixAnimation(Matrix *matrix) : Animation(matrix) {
 		_hue      = -1;
+		_delay    = 20;
 	}
 
 	~MatrixAnimation() {
@@ -181,13 +182,11 @@ NAN_METHOD(Addon::runRain)
 
 	if (!duration->IsUndefined()) {
 		int value = duration->Int32Value();
-		printf("duration: %d\n", value);
 		animation->duration(value);
 	}
 
 	if (!hue->IsUndefined()) {
 		int value = hue->Int32Value();
-		printf("hue: %d\n", value);
 		animation->hue(value);
 
 	}
