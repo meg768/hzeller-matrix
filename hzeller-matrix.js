@@ -42,6 +42,10 @@ var Matrix = module.exports = function(config) {
 		return matrix.isRunning.apply(this, arguments);
 	}
 
+	this.stop = function() {
+		return matrix.stop.apply(this, arguments);
+	}
+
 
 
 	if (config != undefined) {

@@ -88,6 +88,29 @@ NAN_METHOD(Addon::update)
 	info.GetReturnValue().Set(Nan::Undefined());
 };
 
+NAN_METHOD(Addon::stop)
+{
+	Nan::HandleScope scope;
+
+	if (_matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
+
+	v8::Local<v8::Value> callback  = Nan::Undefined();
+
+	int argc = info.Length();
+
+	if (argc > 0 && info[0]->IsFunction())
+		callback = v8::Local<v8::Value>::Cast(info[0]);
+
+	Animation *animation = new Animation(_matrix);
+
+	animation->stop();
+
+	runAnimation(animation, callback);
+
+	info.GetReturnValue().Set(Nan::Undefined());
+};
 
 NAN_METHOD(Addon::configure)
 {
@@ -234,6 +257,7 @@ NAN_MODULE_INIT(initAddon)
 	Nan::SetMethod(target, "runPerlin",  Addon::runPerlin);
 	Nan::SetMethod(target, "runRain",    Addon::runRain);
 	Nan::SetMethod(target, "runImage",   Addon::runImage);
+	Nan::SetMethod(target, "stop",       Addon::stop);
 
 	// Unsupported
 	Nan::SetMethod(target, "drawImage",  Addon::drawImage);
