@@ -502,6 +502,10 @@ public:
 
 		}
 
+		_matrix->clear();
+		_matrix->refresh();
+
+
 		return 0;
 	}
 
