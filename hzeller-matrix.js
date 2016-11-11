@@ -3,7 +3,7 @@ var matrix = require(path.join(__dirname, "build", "Release", "hzeller-matrix.no
 
 var Matrix = module.exports = function(config) {
 
-	if (config != undefined) {
+	if (config != undefined || config.noHardware) {
 		matrix.configure(config);
 
 		this.width  = matrix.width;
