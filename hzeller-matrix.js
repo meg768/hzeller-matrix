@@ -44,7 +44,10 @@ var Matrix = module.exports = function(config) {
 		this.height = 32;
 
 		this.runText = function(text, options, callback) {
-			options = options || {};
+
+			if (!options)
+				options = {};
+
 			console.log('matrix.runText: "%s" %s', text, JSON.stringify(options));
 
 			if (callback)
@@ -52,7 +55,10 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runImage = function(image, options, callback) {
-			options = options || {};
+
+			if (!options)
+				options = {};
+
 			console.log('matrix.runImage: "%s" %s', image, JSON.stringify(options));
 
 			if (callback)
@@ -60,7 +66,10 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runAnimation = function(image, options, callback) {
-			options = options || {};
+
+			if (!options)
+				options = {};
+
 			console.log('matrix.runAnimation: "%s" %s', image, JSON.stringify(options));
 
 			if (callback)
@@ -68,7 +77,10 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runPerlin = function(options, callback) {
-			options = options || {};
+
+			if (!options)
+				options = {};
+
 			console.log('matrix.runPerlin: %s', JSON.stringify(options));
 
 			if (callback)
@@ -76,7 +88,10 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runRain = function(options, callback) {
-			options = options || {};
+
+			if (!options)
+				options = {};
+
 			console.log('matrix.runRain: %s', JSON.stringify(options));
 
 			if (callback)
