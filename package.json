@@ -7,7 +7,7 @@
     "install": "make -C hzeller/lib && node-gyp rebuild"
   },
   "dependencies": {
-    "nan": "^2.3.5"
+    "nan": "^2.4.0"
   },
   "repository": {
     "type": "git",
