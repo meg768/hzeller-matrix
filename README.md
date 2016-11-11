@@ -36,6 +36,8 @@ Constructs a new matrix object. The **config** argument must contain the followi
 - **width** - Specifies the width of the display.
 - **height** - Specifies the height of the display.
 
+If **config** is not specified all methods will only log and no hardware is accessed.
+
 Example
 
 	var Matrix = require('hzeller-matrix');
