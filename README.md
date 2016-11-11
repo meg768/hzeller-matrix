@@ -35,7 +35,7 @@ Constructs a new matrix object. The **config** argument must contain the followi
 
 - **width**      - Specifies the width of the display.
 - **height**     - Specifies the height of the display.
-- **noHardware** - No hardware is present, just log to console.
+- **hardware**   - Set to 'none' to just log to console.
 
 If **config** is not specified all methods will only log to console and no hardware is accessed.
 
