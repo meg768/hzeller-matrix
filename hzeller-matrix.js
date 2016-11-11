@@ -38,10 +38,13 @@ var Matrix = module.exports = function(config) {
 		}
 	}
 	else {
+		console.log('Virtual RGB display hardware is used. Size is 32x32 pixels.');
+
 		this.width  = 32;
 		this.height = 32;
 
 		this.runText = function(text, options, callback) {
+			options = options || {};
 			console.log('matrix.runText: "%s" %s', text, JSON.stringify(options));
 
 			if (callback)
@@ -49,6 +52,7 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runImage = function(image, options, callback) {
+			options = options || {};
 			console.log('matrix.runImage: "%s" %s', image, JSON.stringify(options));
 
 			if (callback)
@@ -56,6 +60,7 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runAnimation = function(image, options, callback) {
+			options = options || {};
 			console.log('matrix.runAnimation: "%s" %s', image, JSON.stringify(options));
 
 			if (callback)
@@ -63,6 +68,7 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runPerlin = function(options, callback) {
+			options = options || {};
 			console.log('matrix.runPerlin: %s', JSON.stringify(options));
 
 			if (callback)
@@ -70,6 +76,7 @@ var Matrix = module.exports = function(config) {
 		}
 
 		this.runRain = function(options, callback) {
+			options = options || {};
 			console.log('matrix.runRain: %s', JSON.stringify(options));
 
 			if (callback)
@@ -80,7 +87,9 @@ var Matrix = module.exports = function(config) {
 			return false;
 		}
 
-		this.stop = function() {
+		this.stop = function(callback) {
+			if (callback)
+				setTimeout(callback, 500);
 		}
 
 	}
