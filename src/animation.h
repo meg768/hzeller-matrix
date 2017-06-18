@@ -23,6 +23,10 @@ public:
 	}
 
 	inline void duration(int value) {
+
+		if (value < 0)
+			value = 0;
+			
 		_duration = value;
 	}
 

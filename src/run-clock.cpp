@@ -32,12 +32,11 @@ NAN_METHOD(Addon::runClock)
 
 	animation->duration(60);
 
-	v8::Local<v8::Value> duration   = Nan::Undefined();
+	v8::Local<v8::Value> duration = Nan::Undefined();
 
 	if (!options->IsUndefined()) {
 		v8::Local<v8::Object> object = v8::Local<v8::Object>::Cast(options);
-		duration   = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
-
+		duration = object->Get(Nan::New<v8::String>("duration").ToLocalChecked());
 	}
 
 	if (!fileName->IsUndefined())
