@@ -13,7 +13,7 @@ var Matrix = module.exports = function(config) {
 			return matrix.runText.apply(this, arguments);
 		}
 
-		this.runImage = function() {
+		this.runImage = function(image, options, callback) {
 			return matrix.runImage.apply(this, arguments);
 		}
 
@@ -27,6 +27,10 @@ var Matrix = module.exports = function(config) {
 
 		this.runRain = function() {
 			return matrix.runRain.apply(this, arguments);
+		}
+
+		this.runClock = function() {
+			return matrix.runClock.apply(this, arguments);
 		}
 
 		this.isRunning = function() {
@@ -93,6 +97,17 @@ var Matrix = module.exports = function(config) {
 				options = {};
 
 			console.log('matrix.runRain: %s', JSON.stringify(options));
+
+			if (callback)
+				setTimeout(callback, 2000);
+		}
+
+		this.runClock = function(options, callback) {
+
+			if (!options)
+				options = {};
+
+			console.log('matrix.runClock: %s', JSON.stringify(options));
 
 			if (callback)
 				setTimeout(callback, 2000);

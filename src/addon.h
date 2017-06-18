@@ -17,6 +17,7 @@ public:
 	static NAN_METHOD(runPerlin);
 	static NAN_METHOD(runRain);
 	static NAN_METHOD(runImage);
+	static NAN_METHOD(runClock);
 	static NAN_METHOD(stop);
 
 	static NAN_METHOD(drawImage);

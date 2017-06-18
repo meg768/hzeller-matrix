@@ -257,6 +257,7 @@ NAN_MODULE_INIT(initAddon)
 	Nan::SetMethod(target, "runPerlin",  Addon::runPerlin);
 	Nan::SetMethod(target, "runRain",    Addon::runRain);
 	Nan::SetMethod(target, "runImage",   Addon::runImage);
+	Nan::SetMethod(target, "runClock",   Addon::runClock);
 	Nan::SetMethod(target, "stop",       Addon::stop);
 
 	// Unsupported
