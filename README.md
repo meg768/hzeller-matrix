@@ -114,6 +114,16 @@ The *options* argument may have the following values.
 - **delay** - Animation delay during display loop in milliseconds.
 - **speed** - Speed factor. Default 1.0. Lesser value slows down the animation. Greater value speeds it up.
 
+### matrix.runClock(image, options, callback)
+
+Displays a clock with the specified look. See  https://github.com/meg768/hzeller-matrix-example
+for examples of clock images.
+
+The **callback** argument is called when the animation completes.
+The *options* argument may have the following values.
+
+- **duration** - Run the animation for **duration** seconds. -1 == inifinity.
+
 ### matrix.isRunning()
 
 Returns true/false if an animation is running or not.
