@@ -2,7 +2,7 @@
 #define _includes_h
 
 #include <nan.h>
-
+#include <stdexcept>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
