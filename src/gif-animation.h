@@ -23,16 +23,14 @@ public:
 		try {
 
 			if (_fileName.length() == 0) {
-				fprintf(stderr, "No animation specified.\n");
-				exit(-1);
+				throw std::runtime_error(std::string("No animation specified"));
 			}
 
 			for (;;) {
 				struct stat status;
 
 				if (stat(_fileName.c_str(), &status) != 0) {
-					fprintf(stderr, "Cannot open file.\n");
-					exit(-1);
+					throw std::runtime_error(std::string("Cannot open file"));
 				}
 
 				if (S_ISREG(status.st_mode))
@@ -57,13 +55,11 @@ public:
 					if (files.size() > 0)
 						_fileName = _fileName + "/" + files[rand() % files.size()];
 					else {
-						fprintf(stderr, "No files in directory.\n");
-						exit(-1);
+						throw std::runtime_error(std::string("No files in directory"));
 					}
 				}
 				else {
-					fprintf(stderr, "Funny file.\n");
-					exit(-1);
+					throw std::runtime_error(std::string("Funny file"));
 				}
 			}
 
@@ -82,8 +78,8 @@ public:
 
 		}
 		catch (exception &error) {
-			fprintf(stderr, "Could not start animation: %s\n", error.what());
-			return -1;
+			Isolate* isolate = Isolate::GetCurrent();
+			isolate->ThrowException(String::NewFromUtf8(isolate, error.what()));
 		}
 
 		return 0;
