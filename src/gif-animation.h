@@ -23,14 +23,14 @@ public:
 		try {
 
 			if (_fileName.length() == 0) {
-				throw std::runtime_error(std::string("No animation specified"));
+				throw runtime_error(string("No animation specified"));
 			}
 
 			for (;;) {
 				struct stat status;
 
 				if (stat(_fileName.c_str(), &status) != 0) {
-					throw std::runtime_error(std::string("Cannot open file"));
+					throw runtime_error(string("Cannot open file"));
 				}
 
 				if (S_ISREG(status.st_mode))
@@ -55,11 +55,11 @@ public:
 					if (files.size() > 0)
 						_fileName = _fileName + "/" + files[rand() % files.size()];
 					else {
-						throw std::runtime_error(std::string("No files in directory"));
+						throw runtime_error(string("No files in directory"));
 					}
 				}
 				else {
-					throw std::runtime_error(std::string("Funny file"));
+					throw runtime_error(string("Funny file"));
 				}
 			}
 
@@ -78,8 +78,8 @@ public:
 
 		}
 		catch (exception &error) {
-			Isolate* isolate = Isolate::GetCurrent();
-			isolate->ThrowException(String::NewFromUtf8(isolate, error.what()));
+			v8::Isolate* isolate = v8::Isolate::GetCurrent();
+			isolate->ThrowException(v8::String::NewFromUtf8(isolate, error.what()));
 		}
 
 		return 0;
