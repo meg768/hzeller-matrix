@@ -17,14 +17,6 @@ struct ANIMATION_CONTEXT {
 
 void Addon::runAnimation(Animation *animation, v8::Local<v8::Value> callback)
 {
-	/*
-	try {
-
-	}
-	catch (exception &olle) {
-		fprintf(stderr, "%s", olle.what();
-	}
-	*/
 	ANIMATION_CONTEXT *context = new ANIMATION_CONTEXT();
 	context->request.data = context;
 	context->callback     = callback->IsFunction() ? new Nan::Callback(v8::Local<v8::Function>::Cast(callback)) : NULL;
