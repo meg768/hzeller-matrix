@@ -23,14 +23,14 @@ public:
 		try {
 
 			if (_fileName.length() == 0) {
-				throw runtime_error(string("No animation specified"));
+				throw exception("No animation specified");
 			}
 
 			for (;;) {
 				struct stat status;
 
 				if (stat(_fileName.c_str(), &status) != 0) {
-					throw runtime_error(string("Cannot open file"));
+					throw exception("Cannot open file");
 				}
 
 				if (S_ISREG(status.st_mode))
@@ -55,11 +55,11 @@ public:
 					if (files.size() > 0)
 						_fileName = _fileName + "/" + files[rand() % files.size()];
 					else {
-						throw runtime_error(string("No files in directory"));
+						throw exception("No files in directory");
 					}
 				}
 				else {
-					throw runtime_error(string("Funny file"));
+					throw exception("Funny file");
 				}
 			}
 
