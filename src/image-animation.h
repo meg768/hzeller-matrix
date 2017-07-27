@@ -187,7 +187,6 @@ public:
 		}
 		catch (exception &error) {
 			fprintf(stderr, "Could not start animation: %s\n", error.what());
-			return -1;
 		}
 
 		return 0;
