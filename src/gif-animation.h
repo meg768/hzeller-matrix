@@ -78,7 +78,7 @@ public:
 
 		}
 		catch (exception &error) {
-			string message = error.what();
+			//string message = error.what();
 			v8::Isolate* isolate = v8::Isolate::GetCurrent();
 			isolate->ThrowException(v8::String::NewFromUtf8(isolate, "ERROR"));
 		}
